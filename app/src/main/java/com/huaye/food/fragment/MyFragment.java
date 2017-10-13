@@ -2,27 +2,22 @@ package com.huaye.food.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.huaye.food.CommentAdapter;
 import com.huaye.food.R;
-import com.huaye.food.bean.Comment;
+import com.huaye.food.WebViewActivity;
 
-import java.util.List;
-
-import cn.bmob.v3.BmobQuery;
+import cn.bluemobi.dylan.step.activity.StepActivity;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by sunhuahui on 2017/10/12.
@@ -30,9 +25,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class MyFragment extends Fragment {
     private TextView username;
-    private ListView list;
-    private CommentAdapter adapter;
-    private Button exit;
+    private LinearLayout exit, step, about;
 
     @Nullable
     @Override
@@ -45,22 +38,25 @@ public class MyFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         username = (TextView) view.findViewById(R.id.username);
-        list = (ListView) view.findViewById(R.id.list);
-        exit = (Button) view.findViewById(R.id.exit);
+        exit = (LinearLayout) view.findViewById(R.id.exit);
+        step = (LinearLayout) view.findViewById(R.id.step);
+        about = (LinearLayout) view.findViewById(R.id.about);
 
         username.setText(BmobUser.getCurrentUser().getUsername());
 
-        adapter = new CommentAdapter(getContext());
-        list.setAdapter(adapter);
-
-        BmobQuery<Comment> query = new BmobQuery<Comment>();
-        query.addWhereEqualTo("user", BmobUser.getCurrentUser());
-        query.findObjects(new FindListener<Comment>() {
+        step.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void done(List<Comment> list, BmobException e) {
-                if (e == null){
-                    adapter.setDatas(list);
-                }
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), StepActivity.class));
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), WebViewActivity.class);
+                startActivity(intent);
             }
         });
 

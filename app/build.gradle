@@ -34,9 +34,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    compile project(":step")
 
     compile 'me.iwf.photopicker:PhotoPicker:0.9.10@aar'
     compile 'com.nineoldandroids:library:2.4.0'
@@ -45,11 +43,9 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:9.8.0'
     compile 'com.google.android.gms:play-services:9.8.0'
     compile 'com.google.android.gms:play-services-location:9.8.0'
-    compile 'com.android.support:multidex:1.0.1'
+
     compile 'com.yanzhenjie.nohttp:nohttp:1.1.4'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-v4:25.3.1'
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
 }

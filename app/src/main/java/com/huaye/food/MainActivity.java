@@ -23,7 +23,7 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_step);
         date_time = (TextView) findViewById(R.id.date_time);
         right = (Button) findViewById(R.id.right);
         right.setText("Login");
@@ -62,8 +62,6 @@ public class MainActivity extends Activity implements OnClickListener {
         }
         super.onStart();
     }
-
-    ;
 
     @Override
     public void onClick(View v) {

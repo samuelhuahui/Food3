@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.huaye.food.Const;
 import com.huaye.food.MenuActivity;
@@ -33,6 +34,7 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
     private Button btn1, btn2, btn3, btn4, btn5;
+    private LinearLayout ln1, ln2, ln3, ln4;
 
     public StoreFragment() {
         // Required empty public constructor
@@ -76,17 +78,15 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btn1 = (Button) view.findViewById(R.id.btn1);
-        btn2 = (Button) view.findViewById(R.id.btn2);
-        btn3 = (Button) view.findViewById(R.id.btn3);
-        btn4 = (Button) view.findViewById(R.id.btn4);
-        btn5 = (Button) view.findViewById(R.id.btn5);
+        ln1 = (LinearLayout) view.findViewById(R.id.lin1);
+        ln2 = (LinearLayout) view.findViewById(R.id.lin2);
+        ln3 = (LinearLayout) view.findViewById(R.id.lin3);
+        ln4 = (LinearLayout) view.findViewById(R.id.lin4);
 
-        btn1.setOnClickListener(this);
-        btn2.setOnClickListener(this);
-        btn3.setOnClickListener(this);
-        btn4.setOnClickListener(this);
-        btn5.setOnClickListener(this);
+        ln1.setOnClickListener(this);
+        ln2.setOnClickListener(this);
+        ln3.setOnClickListener(this);
+        ln4.setOnClickListener(this);
     }
 
     @Override
@@ -104,22 +104,22 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
             intent.putExtra("name", value.getText().toString());
         }
         switch (v.getId()) {
-            case R.id.btn1:
+            case R.id.lin1:
                 Const.currentR = 0;
                 intent.setClass(getContext(), MenuActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.btn2:
+            case R.id.lin2:
                 Const.currentR = 1;
                 intent.setClass(getContext(), MenuActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.btn3:
+            case R.id.lin3:
                 Const.currentR = 2;
                 intent.setClass(getContext(), MenuActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.btn4:
+            case R.id.lin4:
                 Const.currentR = 3;
                 intent.setClass(getContext(), MenuActivity.class);
                 startActivity(intent);
