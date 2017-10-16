@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.huaye.food.R;
 import com.huaye.food.WebViewActivity;
 
-import cn.bluemobi.dylan.step.activity.StepActivity;
 import cn.bmob.v3.BmobUser;
 
 /**
@@ -47,7 +46,7 @@ public class MyFragment extends Fragment {
         step.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), StepActivity.class));
+//                startActivity(new Intent(getContext(), StepActivity.class));
             }
         });
 
