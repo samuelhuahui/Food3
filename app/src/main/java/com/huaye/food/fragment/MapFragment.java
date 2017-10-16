@@ -92,62 +92,6 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
                 .build();
 
         mGoogleApiClient.connect();
-        location();
-    }
-    private void location() {
-        LocationManager locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
-
-        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER, 5000, 0,
-                new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        mLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    }
-
-                    @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                    }
-
-                    @Override
-                    public void onProviderEnabled(String provider) {
-
-                    }
-
-                    @Override
-                    public void onProviderDisabled(String provider) {
-
-                    }
-                });
-
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                3000, 0, new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-
-                    }
-
-                    @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                    }
-
-                    @Override
-                    public void onProviderEnabled(String provider) {
-
-                    }
-
-                    @Override
-                    public void onProviderDisabled(String provider) {
-
-                    }
-                });
-
     }
 
     private DirectionFragment fragment;
@@ -166,6 +110,10 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
                 }
                 polylines.clear();
                 Direction direction = new Gson().fromJson(response.get(), Direction.class);
+                if (!"OK".equals(direction.status)){
+                    Toast.makeText(getContext(), direction.status, Toast.LENGTH_LONG).show();
+                    return;
+                }
                 direction.parse();
                 Direction.Route route = null;
                 mRoutes = direction.routes;
@@ -214,6 +162,7 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
         if (location == null) {
             locationManager.requestLocationUpdates(locationProvider, 3000, 1, locationListener);
         } else {
+            mLocation = new LatLng(location.getLatitude(), location.getLongitude());
             Toast.makeText(getContext(), "获取位置成功", Toast.LENGTH_LONG).show();
             Log.d("samuel", "lon : " + location.getLongitude());
         }
