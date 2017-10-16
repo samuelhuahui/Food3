@@ -12,7 +12,6 @@ import com.huaye.food.fragment.MapFragment;
 import com.huaye.food.fragment.MyFragment;
 import com.huaye.food.fragment.StoreFragment;
 
-import cn.bluemobi.dylan.step.step.service.StepService;
 import cn.bmob.v3.BmobUser;
 
 public class HomeActivity extends AppCompatActivity {
@@ -26,9 +25,9 @@ public class HomeActivity extends AppCompatActivity {
 
         fm = getSupportFragmentManager();
 
-        Intent intent = new Intent(this, StepService.class);
-//        isBind = bindService(intent, conn, Context.BIND_AUTO_CREATE);
-        startService(intent);
+//        Intent intent = new Intent(this, StepService.class);
+////        isBind = bindService(intent, conn, Context.BIND_AUTO_CREATE);
+//        startService(intent);
         fm.beginTransaction().replace(R.id.container, StoreFragment.newInstance("", "")).commit();
 
 
