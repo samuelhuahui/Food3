@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.huaye.food.AddFoodActivity;
 import com.huaye.food.R;
 import com.huaye.food.WebViewActivity;
 
@@ -25,7 +26,7 @@ import cn.bmob.v3.BmobUser;
 
 public class MyFragment extends Fragment {
     private TextView username;
-    private LinearLayout exit, step, about;
+    private LinearLayout exit, step, about, add;
 
     @Nullable
     @Override
@@ -41,6 +42,7 @@ public class MyFragment extends Fragment {
         exit = (LinearLayout) view.findViewById(R.id.exit);
         step = (LinearLayout) view.findViewById(R.id.step);
         about = (LinearLayout) view.findViewById(R.id.about);
+        add = (LinearLayout) view.findViewById(R.id.add_food);
 
         username.setText(BmobUser.getCurrentUser().getUsername());
 
@@ -57,6 +59,13 @@ public class MyFragment extends Fragment {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), WebViewActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), AddFoodActivity.class));
             }
         });
 

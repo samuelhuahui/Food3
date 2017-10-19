@@ -12,6 +12,7 @@ import com.huaye.food.fragment.MapFragment;
 import com.huaye.food.fragment.MyFragment;
 import com.huaye.food.fragment.StoreFragment;
 
+import cn.bluemobi.dylan.step.step.service.StepService;
 import cn.bmob.v3.BmobUser;
 
 public class HomeActivity extends AppCompatActivity {

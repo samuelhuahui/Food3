@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:orientation="vertical" >
+    android:background="#FAFAFA"
+    android:orientation="vertical">
 
-    <include
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_margin="10dp"
-        layout="@layout/include_titlebar" />
+        android:background="@color/primary">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textColor="#000"
-        android:textSize="30sp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:src="@mipmap/arrow_back_white"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/app_name"
+            android:textColor="#FFF"
+            android:textSize="18sp"/>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/ave"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
         android:background="@drawable/shape_public_circle_rec"
         android:gravity="center"
         android:padding="8dp"
         android:text="0&apos;&apos;"
-        android:textColor="#FFF" />
+        android:textColor="#FFF"/>
 
     <RatingBar
         android:id="@+id/score"
@@ -36,71 +49,109 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:numStars="5"
-        android:stepSize="0.5" />
+        android:stepSize="0.5"/>
 
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="Menu of today"
-        android:textColor="#000"
-        android:textSize="25sp" />
+        android:layout_height="1px"
+        android:background="#DDDDDD"/>
 
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/selector_public_btn"
-        android:paddingBottom="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="5dp"
-        android:text="Breakfast"
-        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn2"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/selector_public_btn"
-        android:paddingBottom="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="5dp"
-        android:text="Lunch"
-        android:textSize="20sp" />
+        <RadioGroup
+            android:id="@+id/type"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:background="#F0F0F0"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn3"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/selector_public_btn"
-        android:paddingBottom="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="5dp"
-        android:text="Dinner"
-        android:textSize="20sp" />
+            <RadioButton
+                android:id="@+id/btn0"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/selector_public_btn"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="推荐"
+                android:textSize="14sp"/>
 
-    <Button
-        android:id="@+id/btn4"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/selector_public_btn"
-        android:paddingBottom="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="5dp"
-        android:text="Late night"
-        android:textSize="20sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#DDDDDD"/>
+
+            <RadioButton
+                android:id="@+id/btn1"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/selector_public_btn"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Breakfast"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#DDDDDD"/>
+
+            <RadioButton
+                android:id="@+id/btn2"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/selector_public_btn"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Lunch"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#DDDDDD"/>
+
+            <RadioButton
+                android:id="@+id/btn3"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/selector_public_btn"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Dinner"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#DDDDDD"/>
+
+            <RadioButton
+                android:id="@+id/btn4"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/selector_public_btn"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Late night"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#DDDDDD"/>
+        </RadioGroup>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical"/>
+    </LinearLayout>
+
 
 </LinearLayout>

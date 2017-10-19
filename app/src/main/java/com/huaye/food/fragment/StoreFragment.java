@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.huaye.food.Const;
 import com.huaye.food.MenuActivity;
@@ -99,9 +100,10 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        if (v instanceof Button) {
-            Button value = (Button) v;
-            intent.putExtra("name", value.getText().toString());
+        if (v instanceof LinearLayout) {
+            LinearLayout viewGroup = (LinearLayout) v;
+            TextView name = (TextView) viewGroup.getChildAt(1);
+            intent.putExtra("name", name.getText().toString());
         }
         switch (v.getId()) {
             case R.id.lin1:
