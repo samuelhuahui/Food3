@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huaye.food.bean.Food;
@@ -32,6 +33,8 @@ public class FoodRvAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
                 .setText(R.id.calorie, item.getCalories() + "cal")
                 .addOnClickListener(R.id.add);
 
-        Glide.with(helper.itemView.getContext()).load(item.getPic()).centerCrop().into((ImageView) helper.getView(R.id.pic));
+        RequestOptions requestOptions = new RequestOptions()
+                .centerCrop();
+        Glide.with(helper.itemView.getContext()).load(item.getPic()).apply(requestOptions).into((ImageView) helper.getView(R.id.pic));
     }
 }

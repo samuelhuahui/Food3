@@ -37,6 +37,9 @@ dependencies {
     compile project(':step')
     compile 'me.iwf.photopicker:PhotoPicker:0.9.10@aar'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.github.bumptech.glide:glide:4.2.0'
+
+
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'cn.bmob.android:bmob-sdk:3.5.5'
     compile 'com.google.android.gms:play-services-maps:9.8.0'
