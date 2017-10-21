@@ -77,7 +77,7 @@ public class AddFoodActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                Food food = new Food(spinnerR.getSelectedItemPosition(), spinner.getSelectedItemPosition(), price.getText().toString(), name.getText().toString(), photoUrl);
+                Food food = new Food(spinnerR.getSelectedItemPosition(), spinner.getSelectedItemPosition(), Float.parseFloat(price.getText().toString()), name.getText().toString(), photoUrl);
                 food.setWeek(week.getSelectedItemPosition() + 1);
                 food.save(new SaveListener<String>() {
                     @Override

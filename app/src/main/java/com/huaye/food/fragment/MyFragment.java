@@ -16,17 +16,42 @@ import android.widget.Toast;
 import com.huaye.food.AddFoodActivity;
 import com.huaye.food.R;
 import com.huaye.food.WebViewActivity;
+import com.huaye.food.bean.Caleras;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import cn.bluemobi.dylan.step.activity.StepActivity;
+import cn.bluemobi.dylan.step.msg.MessageEvent;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobDate;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by sunhuahui on 2017/10/12.
  */
 
 public class MyFragment extends Fragment {
-    private TextView username;
+    private TextView username, consume, intake;
     private LinearLayout exit, step, about, add;
+    private int stepCount;
+
+    public static MyFragment newInstance(int stepCount) {
+        MyFragment f = new MyFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("step_count", stepCount);
+        f.setArguments(bundle);
+        return f;
+    }
 
     @Nullable
     @Override
@@ -38,12 +63,15 @@ public class MyFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        stepCount = getArguments().getInt("step_count");
+        EventBus.getDefault().register(this);
         username = (TextView) view.findViewById(R.id.username);
         exit = (LinearLayout) view.findViewById(R.id.exit);
         step = (LinearLayout) view.findViewById(R.id.step);
         about = (LinearLayout) view.findViewById(R.id.about);
         add = (LinearLayout) view.findViewById(R.id.add_food);
-
+        consume = (TextView) view.findViewById(R.id.consume);
+        intake = (TextView) view.findViewById(R.id.intake);
         username.setText(BmobUser.getCurrentUser().getUsername());
 
         step.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +122,76 @@ public class MyFragment extends Fragment {
                     }
                 });
                 builder.create().show();
+            }
+        });
+
+        if (stepCount > 0){
+            float kcal = 1.036f * 50 * stepCount;
+            consume.setText((int) kcal + "");
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onResume() {
+        getIntake();
+        super.onResume();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        float kcal = 1.036f * 50 * event.stepCount;
+        consume.setText((int) kcal + "");
+    }
+
+    private void getIntake() {
+        BmobQuery<Caleras> query = new BmobQuery<Caleras>();
+        List<BmobQuery<Caleras>> and = new ArrayList<BmobQuery<Caleras>>();
+        //大于00：00：00
+        BmobQuery<Caleras> q1 = new BmobQuery<Caleras>();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String dateStr = df.format(new Date());
+
+        String start = dateStr + " 00:00:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = sdf.parse(start);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        q1.addWhereGreaterThanOrEqualTo("createdAt", new BmobDate(date));
+        and.add(q1);
+        //小于23：59：59
+        BmobQuery<Caleras> q2 = new BmobQuery<Caleras>();
+        String end = dateStr + " 23:59:59";
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date1 = null;
+        try {
+            date1 = sdf1.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        q2.addWhereLessThanOrEqualTo("createdAt", new BmobDate(date1));
+        and.add(q2);
+        //添加复合与查询
+        query.and(and);
+        query.addWhereEqualTo("user", BmobUser.getCurrentUser());
+        query.findObjects(new FindListener<Caleras>() {
+            @Override
+            public void done(List<Caleras> list, BmobException e) {
+                float cal = 0;
+                for (int i = 0; list != null && i < list.size(); i++) {
+                    cal += list.get(i).getCal();
+                }
+
+                intake.setText(cal + "");
             }
         });
     }

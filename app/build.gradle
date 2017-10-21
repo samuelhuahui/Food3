@@ -6,7 +6,7 @@ android {
         release {
             keyAlias '华晔软件工作室'
             keyPassword 'samuel'
-            storeFile file('/keystore/huaye.jks')
+            storeFile file('/Users/sunhuahui/Desktop/work/android/github/Food3/app/keystore/huaye.jks')
             storePassword 'samuel'
         }
     }
@@ -34,18 +34,14 @@ android {
 }
 
 dependencies {
-    compile project(":step")
-
+    compile project(':step')
     compile 'me.iwf.photopicker:PhotoPicker:0.9.10@aar'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.github.bumptech.glide:glide:4.2.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'cn.bmob.android:bmob-sdk:3.5.5'
     compile 'com.google.android.gms:play-services-maps:9.8.0'
     compile 'com.google.android.gms:play-services:9.8.0'
     compile 'com.google.android.gms:play-services-location:9.8.0'
-
     compile 'com.yanzhenjie.nohttp:nohttp:1.1.4'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
 }

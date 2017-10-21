@@ -21,12 +21,15 @@ import android.util.Log;
 
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import cn.bluemobi.dylan.step.R;
 import cn.bluemobi.dylan.step.activity.StepActivity;
+import cn.bluemobi.dylan.step.msg.MessageEvent;
 import cn.bluemobi.dylan.step.step.UpdateUiCallBack;
 import cn.bluemobi.dylan.step.step.accelerometer.StepCount;
 import cn.bluemobi.dylan.step.step.accelerometer.StepValuePassListener;
@@ -469,6 +472,8 @@ public class StepService extends Service implements SensorEventListener {
                 CURRENT_STEP++;
             }
         }
+
+        EventBus.getDefault().post(new MessageEvent(CURRENT_STEP));
         updateNotification();
     }
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/primary">
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="8dp"
-            android:src="@mipmap/arrow_back_white"/>
+            android:src="@mipmap/arrow_back_white" />
 
         <TextView
             android:id="@+id/name"
@@ -28,37 +28,94 @@
             android:maxLines="1"
             android:text="@string/app_name"
             android:textColor="#FFF"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/ave"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:background="@drawable/shape_public_circle_rec"
         android:gravity="center"
         android:padding="8dp"
         android:text="0&apos;&apos;"
-        android:textColor="#FFF"/>
+        android:textColor="#FFF" />
 
     <RatingBar
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/ave"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:numStars="5"
-        android:stepSize="0.5"/>
+        android:stepSize="0.5" />
 
     <View
+        android:id="@+id/dis"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#DDDDDD"/>
+        android:layout_below="@id/score"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="#AAA"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:src="@drawable/plate_disable" />
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:background="@drawable/red_circle"
+                android:gravity="center"
+                android:textColor="#FFFF"
+                android:textSize="10sp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/eat"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="#0F0"
+            android:gravity="center"
+            android:text="就餐"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/bottom"
+        android:layout_below="@id/dis"
         android:orientation="horizontal">
 
         <RadioGroup
@@ -78,12 +135,12 @@
                 android:checked="true"
                 android:gravity="center"
                 android:text="推荐"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#DDDDDD"/>
+                android:background="#DDDDDD" />
 
             <RadioButton
                 android:id="@+id/btn1"
@@ -93,12 +150,12 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="Breakfast"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#DDDDDD"/>
+                android:background="#DDDDDD" />
 
             <RadioButton
                 android:id="@+id/btn2"
@@ -108,12 +165,12 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="Lunch"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#DDDDDD"/>
+                android:background="#DDDDDD" />
 
             <RadioButton
                 android:id="@+id/btn3"
@@ -123,12 +180,12 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="Dinner"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#DDDDDD"/>
+                android:background="#DDDDDD" />
 
             <RadioButton
                 android:id="@+id/btn4"
@@ -138,20 +195,20 @@
                 android:button="@null"
                 android:gravity="center"
                 android:text="Late night"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#DDDDDD"/>
+                android:background="#DDDDDD" />
         </RadioGroup>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/foodRv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
     </LinearLayout>
 
-
-</LinearLayout>
+</RelativeLayout>

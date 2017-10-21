@@ -1,15 +1,24 @@
 package com.huaye.food;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.huaye.food.bean.Caleras;
+import com.huaye.food.bean.Food;
 import com.huaye.food.bean.Score;
+import com.huaye.food.fragment.PlateFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,36 +26,50 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 
-import static com.huaye.food.R.id.btn1;
-import static com.huaye.food.R.id.btn2;
-import static com.huaye.food.R.id.btn3;
-import static com.huaye.food.R.id.btn4;
-
-public class MenuActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
+public class MenuActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+    private RecyclerView foodRv;
     private RadioGroup typeRg;
     private TextView name, ave;
     private RatingBar scoreRb;
+    private BmobQuery<Score> query;
+    private BmobQuery<Food> queryFood;
+    private FoodRvAdapter foodAdapter;
+    private ImageView expandImg;
+    private PlateFragment plateFragment;
+    private TextView countTxt;
+    private TextView eatTxt;
+    private ArrayList<Food> foods = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        foodRv = (RecyclerView) findViewById(R.id.foodRv);
         scoreRb = (RatingBar) findViewById(R.id.score);
         typeRg = (RadioGroup) findViewById(R.id.type);
         name = (TextView) findViewById(R.id.name);
         ave = (TextView) findViewById(R.id.ave);
+        expandImg = (ImageView) findViewById(R.id.expand);
+        countTxt = (TextView) findViewById(R.id.count);
+        eatTxt = (TextView) findViewById(R.id.eat);
 
         name.setText(getIntent().getStringExtra("name"));
         query = new BmobQuery<Score>();
         query.average(new String[]{"scroe"});
         query.addWhereEqualTo("restaurant", getIntent().getStringExtra("name"));
+
 
         typeRg.setOnCheckedChangeListener(this);
 
@@ -82,9 +105,62 @@ public class MenuActivity extends Activity implements RadioGroup.OnCheckedChange
                 });
             }
         });
+
+        queryFood = new BmobQuery<>();
+        int week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        queryFood.addWhereEqualTo("week", week);
+        queryFood.addWhereEqualTo("restaurantId", Const.currentR);
+
+        foodAdapter = new FoodRvAdapter();
+        foodRv.setLayoutManager(new LinearLayoutManager(this));
+        foodRv.setAdapter(foodAdapter);
+
+        initListener();
     }
 
-    private BmobQuery<Score> query;
+
+    private void initListener() {
+        foodAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Food food = (Food) adapter.getItem(position);
+                foods.add(food);
+                countTxt.setVisibility(View.VISIBLE);
+                countTxt.setText(foods.size() + "");
+            }
+        });
+
+        expandImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                plateFragment = PlateFragment.newInstance(foods);
+                plateFragment.show(getSupportFragmentManager(), "plate");
+            }
+        });
+
+        eatTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float total = 0;
+                for (Food food : foods) {
+                    total += food.getCalories();
+                }
+                Caleras caleras = new Caleras();
+                caleras.setUser(BmobUser.getCurrentUser());
+                caleras.setCal(total);
+
+                caleras.save(new SaveListener<String>() {
+                    @Override
+                    public void done(String s, BmobException e) {
+                        foods.clear();
+                        countTxt.setVisibility(View.GONE);
+                        Toast.makeText(MenuActivity.this, "Success", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+    }
+
 
     @Override
     protected void onStart() {
@@ -117,14 +193,27 @@ public class MenuActivity extends Activity implements RadioGroup.OnCheckedChange
         Intent intent = new Intent();
         intent.setClass(MenuActivity.this, FoodListActivity.class);
         switch (checkedId) {
-            case btn1:
+            case R.id.btn0:
                 break;
-            case btn2:
+            case R.id.btn1:
+                queryFood.addWhereEqualTo("type", 0);
                 break;
-            case btn3:
+            case R.id.btn2:
+                queryFood.addWhereEqualTo("type", 1);
                 break;
-            case btn4:
+            case R.id.btn3:
+                queryFood.addWhereEqualTo("type", 2);
+                break;
+            case R.id.btn4:
+                queryFood.addWhereEqualTo("type", 3);
                 break;
         }
+        queryFood.findObjects(new FindListener<Food>() {
+            @Override
+            public void done(List<Food> list, BmobException e) {
+                foodAdapter.setNewData(list);
+            }
+        });
+
     }
 }

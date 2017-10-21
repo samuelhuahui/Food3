@@ -6,12 +6,12 @@ public class Food extends BmobObject {
 
     private int restaurantId;
     private int type;
-    private String calories;
+    private Float calories;
     private String name;
     private String pic;
     private int week;
 
-    public Food(int restaurantId, int type, String calories, String name, String pic) {
+    public Food(int restaurantId, int type, Float calories, String name, String pic) {
         this.restaurantId = restaurantId;
         this.type = type;
         this.calories = calories;
@@ -35,12 +35,13 @@ public class Food extends BmobObject {
         this.type = type;
     }
 
-    public String getCalories() {
+    public Float getCalories() {
         return calories;
     }
 
-    public void setCalories(String calories) {
+    public Food setCalories(Float calories) {
         this.calories = calories;
+        return this;
     }
 
     public String getName() {
