@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.huaye.food.DirectionFragment;
 import com.huaye.food.OnMapAndViewReadyListener;
 import com.huaye.food.R;
+import com.huaye.food.bean.Caleras;
 import com.huaye.food.bean.Direction;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.AsyncRequestExecutor;
@@ -37,8 +38,22 @@ import com.yanzhenjie.nohttp.rest.Response;
 import com.yanzhenjie.nohttp.rest.SimpleResponseListener;
 import com.yanzhenjie.nohttp.rest.StringRequest;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import cn.bluemobi.dylan.step.msg.MessageEvent;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobDate;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -57,6 +72,8 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
 
     private static final int[] COLORS = new int[]{R.color.primary_dark, R.color.primary, R.color.accent, R.color.primary_light, R.color.primary_dark_material_light};
 
+    private float consumeCal;
+    private float intakeCal;
     protected GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
     private LocationManager locationManager;
@@ -71,6 +88,7 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
 
         NoHttp.initialize(getContext());
         MapsInitializer.initialize(getContext());
+        EventBus.getDefault().register(this);
 
         new OnMapAndViewReadyListener(MapFragment.this, this);
         locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
@@ -266,11 +284,105 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
 
     @Override
     public void onPolylineClick(Polyline polyline) {
+        List<Float> values = new ArrayList<>();
         for (int i = 0; i < mRoutes.size(); i++) {
             if (mRoutes.get(i).points.equals(polyline.getPoints())) {
-                fragment = DirectionFragment.newInstance(mRoutes, i, mRoutes.get(i).legs.get(0).start_location, mRoutes.get(i).legs.get(0).end_location);
-                fragment.show(getFragmentManager(), DirectionFragment.class.getSimpleName());
+                for (Direction.Route mRoute : mRoutes) {
+                    float preKcal = 1.036f * 50 * Integer.parseInt(mRoute.legs.get(0).distance.value) / 1000;
+                    values.add(preKcal + consumeCal - intakeCal);
+                }
             }
+
+            float v1 = -1;
+            for (Float value : values) {
+                if (value > 0) {
+                    if (v1 == -1) {
+                        v1 = value;
+                    }
+                    if (value < v1) {
+                        v1 = value;
+                    }
+                }
+            }
+
+            if (v1 < 0) {
+                for (Float value : values) {
+                    if (value < 0) {
+                        if (v1 == -1) {
+                            v1 = value;
+                        }
+                        if (value > v1) {
+                            v1 = value;
+                        }
+                    }
+                }
+            }
+
+            int position = values.indexOf(v1);
+
+            if (position < 0) {
+                position = 0;
+            }
+            fragment = DirectionFragment.newInstance(mRoutes, position, mRoutes.get(i).legs.get(0).start_location, mRoutes.get(i).legs.get(0).end_location);
+            fragment.show(getFragmentManager(), DirectionFragment.class.getSimpleName());
+            break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        consumeCal = 1.036f * 50 * event.stepCount;
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
+    }
+
+    private void getIntake() {
+        BmobQuery<Caleras> query = new BmobQuery<Caleras>();
+        List<BmobQuery<Caleras>> and = new ArrayList<BmobQuery<Caleras>>();
+        //大于00：00：00
+        BmobQuery<Caleras> q1 = new BmobQuery<Caleras>();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String dateStr = df.format(new Date());
+
+        String start = dateStr + " 00:00:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = sdf.parse(start);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        q1.addWhereGreaterThanOrEqualTo("createdAt", new BmobDate(date));
+        and.add(q1);
+        //小于23：59：59
+        BmobQuery<Caleras> q2 = new BmobQuery<Caleras>();
+        String end = dateStr + " 23:59:59";
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date1 = null;
+        try {
+            date1 = sdf1.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        q2.addWhereLessThanOrEqualTo("createdAt", new BmobDate(date1));
+        and.add(q2);
+        //添加复合与查询
+        query.and(and);
+        query.addWhereEqualTo("user", BmobUser.getCurrentUser());
+        query.findObjects(new FindListener<Caleras>() {
+            @Override
+            public void done(List<Caleras> list, BmobException e) {
+                float cal = 0;
+                for (int i = 0; list != null && i < list.size(); i++) {
+                    cal += list.get(i).getCal();
+                }
+                intakeCal = cal;
+            }
+        });
     }
 }

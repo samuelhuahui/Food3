@@ -44,4 +44,9 @@ public class DirectionAdapter extends BaseQuickAdapter<Direction.Route, BaseView
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(mWidth / mData.size(), ViewGroup.LayoutParams.MATCH_PARENT);
         root.setLayoutParams(params);
     }
+
+    public void setRecommend(int position) {
+        mPosition = position;
+        notifyDataSetChanged();
+    }
 }
