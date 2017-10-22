@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 import cn.bmob.v3.Bmob;
 
 /**
@@ -22,5 +24,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Bmob.initialize(this, "e5adc480dc55902232502089279322c9");
+        CrashReport.initCrashReport(getApplicationContext(), "0b8ee9b13a", true);
     }
 }

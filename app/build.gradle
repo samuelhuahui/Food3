@@ -19,6 +19,11 @@ android {
         minSdkVersion 17
         targetSdkVersion 22
         multiDexEnabled true
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
 
     buildTypes {
@@ -47,4 +52,10 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:9.8.0'
     compile 'com.yanzhenjie.nohttp:nohttp:1.1.4'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+
 }
