@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
                         fm.beginTransaction().replace(R.id.container, StoreFragment.newInstance("", "")).commit();
                         break;
                     case R.id.menu_map:
-                        fm.beginTransaction().replace(R.id.container, new MapFragment()).commit();
+                        fm.beginTransaction().replace(R.id.container, MapFragment.newInstance(stepCount)).commit();
                         break;
                     case R.id.menu_my:
                         if (BmobUser.getCurrentUser() == null) {

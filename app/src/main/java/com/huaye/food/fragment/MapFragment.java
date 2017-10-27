@@ -80,6 +80,14 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
     private ArrayList<Direction.Route> mRoutes;
     private LatLng mLocation = new LatLng(41.6994831, -86.2413696);
 
+    public static MapFragment newInstance(int stepCount) {
+        MapFragment f = new MapFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("step_count", stepCount);
+        f.setArguments(bundle);
+        return f;
+    }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -88,6 +96,8 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
         NoHttp.initialize(getContext());
         MapsInitializer.initialize(getContext());
         EventBus.getDefault().register(this);
+
+        consumeCal = getArguments().getInt("step_count") / 20.0f;
 
         new OnMapAndViewReadyListener(MapFragment.this, this);
         locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
@@ -158,7 +168,25 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
                 options.icon(BitmapDescriptorFactory.fromResource(R.drawable.end_green));
                 mMap.addMarker(options);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(route.latLgnBounds, 150));
-                fragment = DirectionFragment.newInstance(mRoutes, 0, mRoutes.get(0).legs.get(0).start_location, mRoutes.get(0).legs.get(0).end_location);
+
+                List<Float> values = new ArrayList<>();
+                int position = -1;
+
+                for (Direction.Route mRoute : mRoutes) {
+                    float preKcal = 1.036f * 50 * Integer.parseInt(mRoute.legs.get(0).distance.value) / 1000;
+                    values.add(preKcal + consumeCal - intakeCal);
+                }
+
+                for (int j = 0; j < values.size(); j++) {
+                    if (values.get(j) > 0) {
+                        position = j;
+                        break;
+                    }
+                }
+                if (position < 0) {
+                    position = values.size() - 1;
+                }
+                fragment = DirectionFragment.newInstance(mRoutes, position, mRoutes.get(position).legs.get(0).start_location, mRoutes.get(position).legs.get(0).end_location);
                 fragment.show(getFragmentManager(), DirectionFragment.class.getSimpleName());
             }
 
@@ -172,6 +200,7 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
     @Override
     public void onResume() {
         super.onResume();
+        getIntake();
         if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -179,7 +208,7 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
         if (location == null) {
             locationManager.requestLocationUpdates(locationProvider, 3000, 1, locationListener);
         } else {
-            mLocation = new LatLng(location.getLatitude(), location.getLongitude());
+//            mLocation = new LatLng(location.getLatitude(), location.getLongitude());
         }
     }
 
@@ -209,7 +238,7 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
 
         @Override
         public void onLocationChanged(Location location) {
-            mLocation = new LatLng(location.getLatitude(), location.getLongitude());
+//            mLocation = new LatLng(location.getLatitude(), location.getLongitude());
         }
     };
 
@@ -279,35 +308,17 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
 
     @Override
     public void onPolylineClick(Polyline polyline) {
-        List<Float> values = new ArrayList<>();
-        int position = -1;
-
         for (int i = 0; i < mRoutes.size(); i++) {
             if (mRoutes.get(i).points.equals(polyline.getPoints())) {
-                for (Direction.Route mRoute : mRoutes) {
-                    float preKcal = 1.036f * 50 * Integer.parseInt(mRoute.legs.get(0).distance.value) / 1000;
-                    values.add(preKcal + consumeCal - intakeCal);
-                }
+                fragment = DirectionFragment.newInstance(mRoutes, i, mRoutes.get(i).legs.get(0).start_location, mRoutes.get(i).legs.get(0).end_location);
+                fragment.show(getFragmentManager(), DirectionFragment.class.getSimpleName());
             }
-            for (int j = 0; j < values.size(); j++) {
-                if (values.get(j) > 0) {
-                    position = j;
-                    break;
-                }
-            }
-            if (position < 0) {
-                position = values.size() - 1;
-            }
-
-            fragment = DirectionFragment.newInstance(mRoutes, position, mRoutes.get(i).legs.get(0).start_location, mRoutes.get(i).legs.get(0).end_location);
-            fragment.show(getFragmentManager(), DirectionFragment.class.getSimpleName());
-            break;
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-        consumeCal = 1.036f * 50 * event.stepCount;
+        consumeCal = event.stepCount / 20.0f;
     }
 
     @Override
