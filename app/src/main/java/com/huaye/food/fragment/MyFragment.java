@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -126,8 +127,9 @@ public class MyFragment extends Fragment {
         });
 
         if (stepCount > 0){
-            float kcal = 1.036f * 50 * stepCount;
-            consume.setText((int) kcal + "");
+            float kcal = stepCount / 20.0f;
+            DecimalFormat format = new DecimalFormat("#.00");
+            consume.setText(format.format(kcal));
         }
     }
 
@@ -145,8 +147,9 @@ public class MyFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-        float kcal = 1.036f * 50 * event.stepCount;
-        consume.setText((int) kcal + "");
+        float kcal = event.stepCount / 20.0f;
+        DecimalFormat format = new DecimalFormat("#.00");
+        consume.setText(format.format(kcal));
     }
 
     private void getIntake() {

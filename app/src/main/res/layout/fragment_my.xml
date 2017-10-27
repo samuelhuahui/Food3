@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="消耗(CAL)"
+                    android:text="消耗(KCAL)"
                     android:textColor="#333"
                     android:textSize="18sp" />
 
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="摄入(CAL)"
+                    android:text="摄入(KCAL)"
                     android:textColor="#333"
                     android:textSize="18sp" />
 

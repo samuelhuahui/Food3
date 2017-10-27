@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -128,7 +127,7 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
                 }
                 polylines.clear();
                 Direction direction = new Gson().fromJson(response.get(), Direction.class);
-                if (!"OK".equals(direction.status)){
+                if (!"OK".equals(direction.status)) {
                     Toast.makeText(getContext(), direction.status, Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -181,8 +180,6 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
             locationManager.requestLocationUpdates(locationProvider, 3000, 1, locationListener);
         } else {
             mLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            Toast.makeText(getContext(), "获取位置成功", Toast.LENGTH_LONG).show();
-            Log.d("samuel", "lon : " + location.getLongitude());
         }
     }
 
@@ -213,8 +210,6 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
         @Override
         public void onLocationChanged(Location location) {
             mLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            Toast.makeText(getContext(), "异步获取位置成功", Toast.LENGTH_LONG).show();
-            Log.d("samuel", "lon : " + location.getLongitude());
         }
     };
 
@@ -285,6 +280,8 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
     @Override
     public void onPolylineClick(Polyline polyline) {
         List<Float> values = new ArrayList<>();
+        int position = -1;
+
         for (int i = 0; i < mRoutes.size(); i++) {
             if (mRoutes.get(i).points.equals(polyline.getPoints())) {
                 for (Direction.Route mRoute : mRoutes) {
@@ -292,37 +289,16 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
                     values.add(preKcal + consumeCal - intakeCal);
                 }
             }
-
-            float v1 = -1;
-            for (Float value : values) {
-                if (value > 0) {
-                    if (v1 == -1) {
-                        v1 = value;
-                    }
-                    if (value < v1) {
-                        v1 = value;
-                    }
+            for (int j = 0; j < values.size(); j++) {
+                if (values.get(j) > 0) {
+                    position = j;
+                    break;
                 }
             }
-
-            if (v1 < 0) {
-                for (Float value : values) {
-                    if (value < 0) {
-                        if (v1 == -1) {
-                            v1 = value;
-                        }
-                        if (value > v1) {
-                            v1 = value;
-                        }
-                    }
-                }
-            }
-
-            int position = values.indexOf(v1);
-
             if (position < 0) {
-                position = 0;
+                position = values.size() - 1;
             }
+
             fragment = DirectionFragment.newInstance(mRoutes, position, mRoutes.get(i).legs.get(0).start_location, mRoutes.get(i).legs.get(0).end_location);
             fragment.show(getFragmentManager(), DirectionFragment.class.getSimpleName());
             break;
