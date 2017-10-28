@@ -1,6 +1,8 @@
 package com.huaye.food;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
@@ -26,12 +28,16 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
@@ -49,6 +55,7 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
     private PlateFragment plateFragment;
     private TextView countTxt;
     private TextView eatTxt;
+    private float intakeCal;
     private ArrayList<Food> foods = new ArrayList<>();
 
     @Override
@@ -73,6 +80,7 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         typeRg.setOnCheckedChangeListener(this);
 
+        getIntake();
         scoreRb.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 
             @Override
@@ -194,6 +202,7 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
         intent.setClass(MenuActivity.this, FoodListActivity.class);
         switch (checkedId) {
             case R.id.btn0:
+                getIntake();
                 break;
             case R.id.btn1:
                 queryFood.addWhereEqualTo("type", 0);
@@ -215,5 +224,68 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
         });
 
+    }
+
+    private void getIntake() {
+        BmobQuery<Caleras> query = new BmobQuery<Caleras>();
+        List<BmobQuery<Caleras>> and = new ArrayList<BmobQuery<Caleras>>();
+        //大于00：00：00
+        BmobQuery<Caleras> q1 = new BmobQuery<Caleras>();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        final String dateStr = df.format(new Date());
+
+        String start = dateStr + " 00:00:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = sdf.parse(start);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        q1.addWhereGreaterThanOrEqualTo("createdAt", new BmobDate(date));
+        and.add(q1);
+        //小于23：59：59
+        BmobQuery<Caleras> q2 = new BmobQuery<Caleras>();
+        String end = dateStr + " 23:59:59";
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date1 = null;
+        try {
+            date1 = sdf1.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        q2.addWhereLessThanOrEqualTo("createdAt", new BmobDate(date1));
+        and.add(q2);
+        //添加复合与查询
+        query.and(and);
+        query.addWhereEqualTo("user", BmobUser.getCurrentUser());
+        query.findObjects(new FindListener<Caleras>() {
+            @Override
+            public void done(List<Caleras> list, BmobException e) {
+                float cal = 0;
+                for (int i = 0; list != null && i < list.size(); i++) {
+                    cal += list.get(i).getCal();
+                }
+
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                SharedPreferences sharedPreferences = getSharedPreferences("data", Activity.MODE_PRIVATE);
+                int stepCount = sharedPreferences.getInt("step_count_" + df.format(new Date()), 0);
+                float consumeCal = stepCount / 20.0f;
+
+                if (Math.abs(cal - consumeCal) < 200) {
+                    queryFood.addWhereEqualTo("calorieLevel", 1);
+                } else if (cal - consumeCal < -200) {
+                    queryFood.addWhereEqualTo("calorieLevel", 0);
+                }
+
+                queryFood.findObjects(new FindListener<Food>() {
+                    @Override
+                    public void done(List<Food> list, BmobException e) {
+                        foodAdapter.setNewData(list);
+                    }
+                });
+            }
+        });
     }
 }

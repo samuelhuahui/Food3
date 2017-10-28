@@ -1,5 +1,6 @@
 package cn.bluemobi.dylan.step.step.service;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -473,6 +475,9 @@ public class StepService extends Service implements SensorEventListener {
             }
         }
 
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SharedPreferences sharedPreferences = getSharedPreferences("data", Activity.MODE_PRIVATE);
+        sharedPreferences.edit().putInt("step_count_" + df.format(new Date()), CURRENT_STEP);
         EventBus.getDefault().post(new MessageEvent(CURRENT_STEP));
         updateNotification();
     }

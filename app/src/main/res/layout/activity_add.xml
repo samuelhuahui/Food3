@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <include
+            layout="@layout/include_titlebar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_margin="10dp"
-            layout="@layout/include_titlebar" />
+            android:layout_margin="10dp" />
 
         <FrameLayout
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:layout_gravity="center_horizontal" >
+            android:layout_gravity="center_horizontal">
 
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                
+
                 android:src="@drawable/add_photo" />
 
             <ProgressBar
@@ -40,12 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="16dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/spinnerR"
@@ -83,11 +83,25 @@
                 android:padding="8dp"
                 android:textSize="18sp" />
 
-            <Spinner
-                android:id="@+id/spinner"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/calorie"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_weight="1" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

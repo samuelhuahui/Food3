@@ -39,7 +39,7 @@ public class AddFoodActivity extends Activity {
     private EditText price;
     private ImageView img;
     private ProgressBar pb;
-    private Spinner spinner, spinnerR, week;
+    private Spinner spinner, spinnerR, week, calorieSpinner;
     private Button right;
     private String photoName;
     private String photoUrl;
@@ -60,6 +60,7 @@ public class AddFoodActivity extends Activity {
         price = (EditText) findViewById(R.id.price);
         spinner = (Spinner) findViewById(R.id.spinner);
         spinnerR = (Spinner) findViewById(R.id.spinnerR);
+        calorieSpinner = (Spinner) findViewById(R.id.calorie);
         week = (Spinner) findViewById(R.id.week);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item_type, new String[]{"Breakfast", "Lunch", "Dinner", "Lave night"});
         spinner.setAdapter(adapter);
@@ -70,6 +71,9 @@ public class AddFoodActivity extends Activity {
         ArrayAdapter<String> weekAdapter = new ArrayAdapter<String>(this, R.layout.item_type, new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
         week.setAdapter(weekAdapter);
 
+        ArrayAdapter<String> calorieAdapter = new ArrayAdapter<String>(this, R.layout.item_type, new String[]{"Low Calories", "Middle Calories", "High Calories"});
+        calorieSpinner.setAdapter(calorieAdapter);
+
         handler.postDelayed(runnable, 10);
         right.setText("Save");
 
@@ -79,6 +83,13 @@ public class AddFoodActivity extends Activity {
             public void onClick(View v) {
                 Food food = new Food(spinnerR.getSelectedItemPosition(), spinner.getSelectedItemPosition(), Float.parseFloat(price.getText().toString()), name.getText().toString(), photoUrl);
                 food.setWeek(week.getSelectedItemPosition() + 1);
+                if (food.getCalories() > 350) {
+                    food.setCalorieLevel(2);
+                } else if (food.getCalories() < 150) {
+                    food.setCalorieLevel(0);
+                } else {
+                    food.setCalorieLevel(1);
+                }
                 food.save(new SaveListener<String>() {
                     @Override
                     public void done(String s, BmobException e) {
@@ -145,7 +156,7 @@ public class AddFoodActivity extends Activity {
         if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
             if (data != null) {
                 ArrayList<String> photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-                if (photos != null && photos.size() == 1){
+                if (photos != null && photos.size() == 1) {
                     photoPath = BitmapUtil.compressImage(photos.get(0));
                     img.setImageBitmap(BitmapFactory.decodeFile(photoPath));
                     final BmobFile bmobFile = new BmobFile(new File(photoPath));

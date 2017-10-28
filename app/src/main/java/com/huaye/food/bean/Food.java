@@ -10,6 +10,7 @@ public class Food extends BmobObject {
     private String name;
     private String pic;
     private int week;
+    private int calorieLevel;
 
     public Food(int restaurantId, int type, float calories, String name, String pic) {
         this.restaurantId = restaurantId;
@@ -68,4 +69,12 @@ public class Food extends BmobObject {
         this.week = week;
     }
 
+    public int getCalorieLevel() {
+        return calorieLevel;
+    }
+
+    public Food setCalorieLevel(int calorieLevel) {
+        this.calorieLevel = calorieLevel;
+        return this;
+    }
 }
