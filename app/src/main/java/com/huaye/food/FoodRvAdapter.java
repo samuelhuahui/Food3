@@ -18,13 +18,14 @@ import java.util.List;
  */
 
 public class FoodRvAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
-
+    private boolean isShowAdd = true;
     public FoodRvAdapter(@LayoutRes int layoutResId, @Nullable List<Food> data) {
         super(layoutResId, data);
     }
 
-    public FoodRvAdapter() {
+    public FoodRvAdapter(boolean isShowAdd) {
         this(R.layout.item_food_rv, new ArrayList<Food>());
+        this.isShowAdd = isShowAdd;
     }
 
     @Override
@@ -32,7 +33,11 @@ public class FoodRvAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         helper.setText(R.id.title, item.getName())
                 .setText(R.id.calorie, item.getCalories() + "cal")
                 .addOnClickListener(R.id.add);
-
+        if (isShowAdd){
+            helper.setVisible(R.id.add, true);
+        } else {
+            helper.setVisible(R.id.add, false);
+        }
         RequestOptions requestOptions = new RequestOptions()
                 .centerCrop();
         Glide.with(helper.itemView.getContext()).load(item.getPic()).apply(requestOptions).into((ImageView) helper.getView(R.id.pic));

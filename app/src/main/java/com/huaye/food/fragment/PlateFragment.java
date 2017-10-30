@@ -43,7 +43,7 @@ public class PlateFragment extends BottomSheetDialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         foods = (ArrayList<Food>) getArguments().getSerializable("foods");
-        adapter = new FoodRvAdapter();
+        adapter = new FoodRvAdapter(false);
         plateRv = (RecyclerView) view.findViewById(R.id.plate_rv);
         plateRv.setLayoutManager(new LinearLayoutManager(getContext()));
         plateRv.setAdapter(adapter);

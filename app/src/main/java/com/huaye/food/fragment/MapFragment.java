@@ -1,13 +1,11 @@
 package com.huaye.food.fragment;
 
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Toast;
 
@@ -201,15 +199,16 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
     public void onResume() {
         super.onResume();
         getIntake();
-        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(locationProvider);
-        if (location == null) {
-            locationManager.requestLocationUpdates(locationProvider, 3000, 1, locationListener);
-        } else {
+        locationManager.requestLocationUpdates(locationProvider, 3000, 1, locationListener);
+//        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            return;
+//        }
+//        Location location = locationManager.getLastKnownLocation(locationProvider);
+//        if (location == null) {
+//
+//        } else {
 //            mLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        }
+//        }
     }
 
     @Override
@@ -238,7 +237,7 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
 
         @Override
         public void onLocationChanged(Location location) {
-//            mLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            mLocation = new LatLng(location.getLatitude(), location.getLongitude());
         }
     };
 

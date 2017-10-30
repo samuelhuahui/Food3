@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.huaye.food.fragment.MapFragment;
 import com.huaye.food.fragment.MyFragment;
+import com.huaye.food.fragment.ShakeFragment;
 import com.huaye.food.fragment.StoreFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,6 +50,9 @@ public class HomeActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.menu_store:
                         fm.beginTransaction().replace(R.id.container, StoreFragment.newInstance("", "")).commit();
+                        break;
+                    case R.id.menu_shake:
+                        fm.beginTransaction().replace(R.id.container, ShakeFragment.newInstance(stepCount)).commit();
                         break;
                     case R.id.menu_map:
                         fm.beginTransaction().replace(R.id.container, MapFragment.newInstance(stepCount)).commit();

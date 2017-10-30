@@ -5,6 +5,12 @@
         android:checked="true"
         android:icon="@drawable/store"
         android:title="Store"/>
+
+    <item
+        android:id="@+id/menu_shake"
+        android:icon="@drawable/shake"
+        android:title="Shake"/>
+
     <item
         android:id="@+id/menu_map"
         android:icon="@drawable/home_map"

@@ -119,7 +119,7 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
         queryFood.addWhereEqualTo("week", week);
         queryFood.addWhereEqualTo("restaurantId", Const.currentR);
 
-        foodAdapter = new FoodRvAdapter();
+        foodAdapter = new FoodRvAdapter(true);
         foodRv.setLayoutManager(new LinearLayoutManager(this));
         foodRv.setAdapter(foodAdapter);
 
