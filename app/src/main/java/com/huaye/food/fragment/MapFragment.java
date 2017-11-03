@@ -11,7 +11,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -111,7 +112,9 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
             return;
         }
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
-                .addApi(Places.GEO_DATA_API)
+//                .addApi(Places.GEO_DATA_API)
+                .addApi(LocationServices.API)
+//                .addApi(Places.PLACE_DETECTION_API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
@@ -290,9 +293,27 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
         getRoutes(marker.getPosition().latitude, marker.getPosition().longitude);
     }
 
+    private LocationRequest locReq;
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
+        locReq = new LocationRequest();
+        locReq.setPriority(100);
+        locReq.setFastestInterval(500);
+        locReq.setInterval(1000);
+        if (mGoogleApiClient != null){
+            Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (location != null){
+                mLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            }
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locReq, new com.google.android.gms.location.LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    mLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    Toast.makeText(getContext(), location.getProvider(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     @Override
