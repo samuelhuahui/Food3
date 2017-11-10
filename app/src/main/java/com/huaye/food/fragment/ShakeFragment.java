@@ -2,6 +2,7 @@ package com.huaye.food.fragment;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -26,7 +27,10 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.android.gms.maps.model.LatLng;
 import com.huaye.food.FoodRvAdapter;
+import com.huaye.food.MarkerActivity;
 import com.huaye.food.R;
 import com.huaye.food.bean.Caleras;
 import com.huaye.food.bean.Food;
@@ -52,6 +56,10 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class ShakeFragment extends Fragment implements SensorEventListener {
     private static final String ARG_STEP_COUNT = "step_count";
+    private static final LatLng SOUTH_DINNING_HALL = new LatLng(41.6994831, -86.2413696);
+    private static final LatLng NORTH_DINNING_HALL = new LatLng(41.7044217, -86.2359478);
+    private static final LatLng LIBRARY_CAFE = new LatLng(41.7023435, -86.2340916);
+    private static final LatLng GRACE_HALL = new LatLng(41.7048248, -86.2339147);
 
     private static final String TAG = "MainActivity";
     private static final int START_SHAKE = 0x1;
@@ -144,6 +152,16 @@ public class ShakeFragment extends Fragment implements SensorEventListener {
         mAdapter = new FoodRvAdapter(false);
         mFoodRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mFoodRv.setAdapter(mAdapter);
+
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Food food = (Food) adapter.getItem(position);
+                Intent intent = new Intent(getContext(), MarkerActivity.class);
+                intent.putExtra("id", food.getRestaurantId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void initData() {
@@ -174,7 +192,7 @@ public class ShakeFragment extends Fragment implements SensorEventListener {
     }
 
     private void getIntake() {
-        BmobQuery<Caleras> query = new BmobQuery<Caleras>();
+        final BmobQuery<Caleras> query = new BmobQuery<Caleras>();
         List<BmobQuery<Caleras>> and = new ArrayList<BmobQuery<Caleras>>();
         //大于00：00：00
         BmobQuery<Caleras> q1 = new BmobQuery<Caleras>();
@@ -219,12 +237,26 @@ public class ShakeFragment extends Fragment implements SensorEventListener {
                 int stepCount = sharedPreferences.getInt("step_count_" + df.format(new Date()), 0);
                 float consumeCal = stepCount / 20.0f;
 
-                if (Math.abs(cal - consumeCal) < 200) {
+                if (Math.abs(cal - consumeCal) < 400) {
                     queryFood.addWhereEqualTo("calorieLevel", 1);
-                } else if (cal - consumeCal < -200) {
+                } else if (cal - consumeCal < -400) {
                     queryFood.addWhereEqualTo("calorieLevel", 0);
+                } else {
+                    queryFood.addWhereEqualTo("calorieLevel", 2);
                 }
 
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                if (hour > 6 && hour <= 11) {
+                    queryFood.addWhereEqualTo("type", 0);
+                } else if (hour > 11 && hour <= 16) {
+                    queryFood.addWhereEqualTo("type", 1);
+                } else if (hour > 16 && hour <= 20) {
+                    queryFood.addWhereEqualTo("type", 2);
+                } else {
+                    queryFood.addWhereEqualTo("type", 3);
+                }
+                queryFood.setLimit(5);
                 queryFood.findObjects(new FindListener<Food>() {
                     @Override
                     public void done(List<Food> list, BmobException e) {

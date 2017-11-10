@@ -9,6 +9,8 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.support.v4.os.CancellationSignal;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -16,6 +18,8 @@ import com.huaye.food.fragment.MapFragment;
 import com.huaye.food.fragment.MyFragment;
 import com.huaye.food.fragment.ShakeFragment;
 import com.huaye.food.fragment.StoreFragment;
+import com.wei.android.lib.fingerprintidentify.FingerprintIdentify;
+import com.wei.android.lib.fingerprintidentify.base.BaseFingerprint;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,12 +33,22 @@ public class HomeActivity extends AppCompatActivity {
     private FragmentManager fm;
     private boolean isBind = false;
     private int stepCount;
+    private FingerprintManagerCompat manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        manager = FingerprintManagerCompat.from(this);
+        if (!App.isRunning){
+            manager.authenticate(null, 0, new CancellationSignal(), new FingerprintManagerCompat.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
+                    App.isRunning = true;
+                    super.onAuthenticationSucceeded(result);
+                }
+            }, null);
+        }
         fm = getSupportFragmentManager();
 
         Intent intent = new Intent(this, StepService.class);
@@ -70,6 +84,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     /**
      * 用于查询应用服务（application Service）的状态的一种interface，

@@ -24,6 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import cn.bmob.v3.BmobACL;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -90,6 +92,10 @@ public class AddFoodActivity extends Activity {
                 } else {
                     food.setCalorieLevel(1);
                 }
+
+                BmobACL acl = new BmobACL();
+                acl.setPublicReadAccess(true);
+                acl.setWriteAccess(BmobUser.getCurrentUser(BmobUser.class), true);
                 food.save(new SaveListener<String>() {
                     @Override
                     public void done(String s, BmobException e) {

@@ -12,6 +12,9 @@ public class Food extends BmobObject {
     private int week;
     private int calorieLevel;
 
+    public Food(){
+
+    }
     public Food(int restaurantId, int type, float calories, String name, String pic) {
         this.restaurantId = restaurantId;
         this.type = type;

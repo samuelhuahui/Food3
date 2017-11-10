@@ -58,12 +58,14 @@ public class MarkerActivity extends AppCompatActivity implements OnMapAndViewRea
     private LocationManager locationManager;
     private String locationProvider;
     private ArrayList<Direction.Route> mRoutes;
+    private int index = 0;
     private LatLng mLocation = new LatLng(41.6994831, -86.2413696);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marker);
+        index = getIntent().getIntExtra("id", 0);
         NoHttp.initialize(this);
         MapsInitializer.initialize(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -252,13 +254,22 @@ public class MarkerActivity extends AppCompatActivity implements OnMapAndViewRea
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.setContentDescription("Map with lots of markers.");
 
-        LatLngBounds bounds = new LatLngBounds.Builder()
-                .include(LIBRARY_CAFE)
-                .include(GRACE_HALL)
-                .include(SOUTH_DINNING_HALL)
-                .include(NORTH_DINNING_HALL)
-                .build();
+        LatLngBounds bounds = null;
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        if (index == 0) {
+            bounds = builder.include(SOUTH_DINNING_HALL).build();
+        }
+        if (index == 1) {
+            bounds = builder.include(SOUTH_DINNING_HALL).build();
+        }
 
+        if (index == 2) {
+            bounds = builder.include(LIBRARY_CAFE).build();
+        }
+
+        if (index == 3) {
+            bounds = builder.include(GRACE_HALL).build();
+        }
         mMap.setOnInfoWindowClickListener(this);
         mMap.setOnPolylineClickListener(this);
         addMarkersToMap();
@@ -267,32 +278,36 @@ public class MarkerActivity extends AppCompatActivity implements OnMapAndViewRea
     }
 
     private void addMarkersToMap() {
-        mMap.addMarker(new MarkerOptions()
-                .position(SOUTH_DINNING_HALL)
-                .title("SOUTH DINNING HALL")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        if (index == 0) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(SOUTH_DINNING_HALL)
+                    .title("SOUTH DINNING HALL")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        }
+        if (index == 1)
+            mMap.addMarker(new MarkerOptions()
+                    .position(LIBRARY_CAFE)
+                    .title("LIBRARY CAFE")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
+                    .infoWindowAnchor(0.5f, 0.5f));
 
-        mMap.addMarker(new MarkerOptions()
-                .position(LIBRARY_CAFE)
-                .title("LIBRARY CAFE")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
-                .infoWindowAnchor(0.5f, 0.5f));
+        if (index == 2)
+            mMap.addMarker(new MarkerOptions()
+                    .position(NORTH_DINNING_HALL)
+                    .title("NORTH DINNING HALL")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                    .draggable(true));
 
-        mMap.addMarker(new MarkerOptions()
-                .position(NORTH_DINNING_HALL)
-                .title("NORTH DINNING HALL")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                .draggable(true));
-
-        mMap.addMarker(new MarkerOptions()
-                .position(GRACE_HALL)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                .title("GRACE HALL"));
+        if (index == 3)
+            mMap.addMarker(new MarkerOptions()
+                    .position(GRACE_HALL)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                    .title("GRACE HALL"));
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        getRoutes(marker.getPosition().latitude, marker.getPosition().longitude);
+//        getRoutes(marker.getPosition().latitude, marker.getPosition().longitude);
     }
 
     @Override

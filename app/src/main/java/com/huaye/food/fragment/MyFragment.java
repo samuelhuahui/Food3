@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huaye.food.AddFoodActivity;
+import com.huaye.food.FoodManagerActivity;
 import com.huaye.food.R;
 import com.huaye.food.WebViewActivity;
 import com.huaye.food.bean.Caleras;
@@ -43,7 +44,7 @@ import cn.bmob.v3.listener.FindListener;
 
 public class MyFragment extends Fragment {
     private TextView username, consume, intake;
-    private LinearLayout exit, step, about, add;
+    private LinearLayout exit, step, about, add, foodManagerLv;
     private int stepCount;
 
     public static MyFragment newInstance(int stepCount) {
@@ -70,11 +71,16 @@ public class MyFragment extends Fragment {
         exit = (LinearLayout) view.findViewById(R.id.exit);
         step = (LinearLayout) view.findViewById(R.id.step);
         about = (LinearLayout) view.findViewById(R.id.about);
+        foodManagerLv = view.findViewById(R.id.food_manager);
         add = (LinearLayout) view.findViewById(R.id.add_food);
         consume = (TextView) view.findViewById(R.id.consume);
         intake = (TextView) view.findViewById(R.id.intake);
         username.setText(BmobUser.getCurrentUser().getUsername());
 
+        if (!"5d01e4530a".equalsIgnoreCase(BmobUser.getCurrentUser().getObjectId())){
+            add.setVisibility(View.GONE);
+            foodManagerLv.setVisibility(View.GONE);
+        }
         step.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +129,13 @@ public class MyFragment extends Fragment {
                     }
                 });
                 builder.create().show();
+            }
+        });
+
+        foodManagerLv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), FoodManagerActivity.class));
             }
         });
 

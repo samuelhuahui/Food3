@@ -19,6 +19,7 @@ import java.util.List;
 
 public class FoodRvAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
     private boolean isShowAdd = true;
+
     public FoodRvAdapter(@LayoutRes int layoutResId, @Nullable List<Food> data) {
         super(layoutResId, data);
     }
@@ -33,12 +34,28 @@ public class FoodRvAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         helper.setText(R.id.title, item.getName())
                 .setText(R.id.calorie, item.getCalories() + "cal")
                 .addOnClickListener(R.id.add);
-        if (isShowAdd){
-            helper.setVisible(R.id.add, true);
+        if (isShowAdd) {
+            helper.setImageResource(R.id.add, R.drawable.add);
         } else {
-            helper.setVisible(R.id.add, false);
+            helper.setImageResource(R.id.add, R.drawable.navigation);
+        }
+
+        switch (item.getRestaurantId()) {
+            case 0:
+                helper.setText(R.id.name, "South Dining Hall");
+                break;
+            case 1:
+                helper.setText(R.id.name, "North Dining Hall");
+                break;
+            case 2:
+                helper.setText(R.id.name, "Library Cafe");
+                break;
+            case 3:
+                helper.setText(R.id.name, "Grace Hall");
+                break;
         }
         RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.placeholer)
                 .centerCrop();
         Glide.with(helper.itemView.getContext()).load(item.getPic()).apply(requestOptions).into((ImageView) helper.getView(R.id.pic));
     }

@@ -123,6 +123,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/food_manager"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
@@ -141,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="我的评论"
+                android:text="菜单管理"
                 android:textColor="#333"
                 android:textSize="20sp" />
 

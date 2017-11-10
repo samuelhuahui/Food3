@@ -273,10 +273,12 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
                 int stepCount = sharedPreferences.getInt("step_count_" + df.format(new Date()), 0);
                 float consumeCal = stepCount / 20.0f;
 
-                if (Math.abs(cal - consumeCal) < 200) {
+                if (Math.abs(cal - consumeCal) < 400) {
                     queryFood.addWhereEqualTo("calorieLevel", 1);
-                } else if (cal - consumeCal < -200) {
+                } else if (cal - consumeCal < -400) {
                     queryFood.addWhereEqualTo("calorieLevel", 0);
+                } else {
+                    queryFood.addWhereEqualTo("calorieLevel", 2);
                 }
 
                 queryFood.findObjects(new FindListener<Food>() {

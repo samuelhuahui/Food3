@@ -13,7 +13,7 @@ import cn.bmob.v3.Bmob;
  */
 
 public class App extends Application {
-
+    public static Boolean isRunning = false;
     @Override
     protected void attachBaseContext(Context base) {
         MultiDex.install(this);
