@@ -4,10 +4,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias '华晔软件工作室'
-            keyPassword 'samuel'
-            storeFile file('D:/android/demo/Food3/app/keystore/huaye.jks')
-            storePassword 'samuel'
+            keyAlias 'food'
+            keyPassword '123456'
+            storeFile file('D:/android/demo/Food3/app/keystore/food.jks')
+            storePassword '123456'
         }
     }
 
