@@ -1,0 +1,343 @@
+0,1,0,ND Plain Bagel ,250
+0,1,0,ND Everything Bagel,350
+0,1,0,ND Wheat Bagel,230
+0,1,0,Glazed Donut,226
+0,1,0,Vegan 0 Burrito ,180
+0,1,0,Buttermilk Pancakes ,100
+0,1,0,Scrambled Eggs ,91
+0,1,0,Hash Browns,265
+0,1,0,Fresh Buttered Biscuits,100
+0,1,0,ND Salad ,50
+0,1,0,Chocolate Glazed Donut,400
+0,1,1,Thai Spring Roll ,80
+0,1,1,Thai Vegetable Curry ,300
+0,1,1,Thai Peanut Salad ,151
+0,1,1,Thai Fried Rice ,400
+0,1,1,Creamy Tomato Soup ,130
+0,1,1,ND Salad ,50
+0,1,1,Caesar salad ,94
+0,1,1,Frozen Yogurt ,114
+0,1,1,Ice Cream ,137
+0,1,1,Fajita Beef Salad,360
+0,1,2,Texas Chili ,390
+0,1,2,Soup Du Jour ,50
+0,1,2,Meatballs Pastaria ,412
+0,1,2,Tri-Color Rotini ,200
+0,1,2,Chicken Parmesan Sandwich,400
+0,1,2,Garden Vegetable Soup,40
+0,1,2,Caesar salad ,94
+0,1,2,Frozen Yogurt ,114
+0,1,2,Ice Cream ,137
+0,1,3,Beef Mushroom Burger,300
+0,1,3,Creamy Tomato Soup ,130
+0,1,3,Soup Du Jour ,50
+0,1,3,ND Salad ,50
+0,1,3,Grilled Cheese on White,350
+0,1,3,Malibu Vegan Gardenburger,260
+0,1,3,ND Plain Bagel ,300
+0,1,3,Chicken Wings ,200
+0,1,3,Texas Chili ,390
+0,2,0,ND Plain Bagel ,250
+0,2,0,ND Everything Bagel,350
+0,2,0,ND Wheat Bagel ,230
+0,2,0,Glazed Donut,226
+0,2,0,Chocolate Glazed Donut,400
+0,2,0,Tofu Scramble,150
+0,2,0,Scrambled Eggs ,91
+0,2,0,Hard Cooked Eggs,78
+0,2,0,Bacon ,84
+0,2,1,Vegetable Tempura,120
+0,2,1,Beef Yaki Soba,260
+0,2,1,Miso Roasted Cod,200
+0,2,1,Meatballs Pastaria ,412
+0,2,1,Frozen Yogurt ,114
+0,2,1,Ice Cream ,137
+0,2,1,Caesar salad ,94
+0,2,1,ND Salad ,50
+0,2,1,Chess Pizza,420
+0,2,2,Texas Chili ,390
+0,2,2,Soup Du Jour ,50
+0,2,2,Meatballs Pastaria ,412
+0,2,2,Tri-Color Rotini ,200
+0,2,2,Chicken Parmesan Sandwich,400
+0,2,2,Garden Vegetable Soup,40
+0,2,2,Caesar salad ,94
+0,2,2,Frozen Yogurt ,114
+0,2,2,Ice Cream ,137
+0,2,3,Beef Mushroom Burger,300
+0,2,3,Creamy Tomato Soup ,130
+0,2,3,Soup Du Jour ,50
+0,2,3,ND Salad ,50
+0,2,3,Grilled Cheese on White,350
+0,2,3,Malibu Vegan Gardenburger,260
+0,2,3,ND Plain Bagel ,300
+0,3,0,Potato Hash with Avocado and Eggs,300
+0,3,0,Sunshine French Toast,150
+0,3,0,Bacon,84
+0,3,0,Hard Cooked Eggs,78
+0,3,0,Scrambled Eggs,91
+0,3,0,Flour Tortilla,467
+0,3,0,Biscuits,49
+0,3,0,Sausage Gravy,70
+0,3,0,Red Skin Roasted Potatoes,154
+0,3,1,Creamy Tomato Soup,130
+0,3,1,Texas Chili,390
+0,3,1,Chicken Tortilla Soup,285
+0,3,1,Cheese Pizza,420
+0,3,1,Pepperoni Pizza,450
+0,3,1,Chicken Marsala,357
+0,3,1,Meatballs in Au jus,420
+0,3,1,Steak Quesadilla,580
+0,3,1,ND Salad ,50
+0,3,1,Caesar salad ,94
+0,3,1,Soup Du Jour ,50
+0,3,1,Steamed Broccoli Cuts,30
+0,3,2,Mozzarella Breadsticks,210
+0,3,2,Creamy Tomato Soup,130
+0,3,2,Breaded Chicken Fillet,300
+0,3,2,Sweet & Sour Red Cabbage,180
+0,3,2,Hoagie Rolls,260
+0,3,2,Steamed Whole Green Beans,15
+0,3,2,Grilled Brazilian Steak,753
+0,3,2,Black Forest Cake,282
+0,3,3,Char-Grilled Chicken Breast,200
+0,3,3,Beef Mushroom Burger,350
+0,3,3,Malibu Vegan Gardenburger,260
+0,3,3,Steamed Sliced Carrots,30
+0,3,3,Soup Du Jour ,50
+0,3,3,Grilled Cheese on White,350
+0,3,3,Chiken Wings,200
+0,3,3,ND Salad ,50
+0,4,0,ND Plain Bagel ,250
+0,4,0,ND Everything Bagel,350
+0,4,0,ND Wheat Bagel,230
+0,4,0,Glazed Donut,226
+0,4,0,Vegan 0 Burrito ,180
+0,4,0,Buttermilk Pancakes ,100
+0,4,0,Scrambled Eggs ,91
+0,4,0,Hash Browns,265
+0,4,0,Fresh Buttered Biscuits,100
+0,4,0,ND Salad ,50
+0,4,0,Chocolate Glazed Donut,400
+0,4,1,Thai Spring Roll ,80
+0,4,1,Thai Vegetable Curry ,300
+0,4,1,Thai Peanut Salad ,151
+0,4,1,Thai Fried Rice ,400
+0,4,1,Creamy Tomato Soup ,130
+0,4,1,ND Salad ,50
+0,4,1,Caesar salad ,94
+0,4,1,Frozen Yogurt ,114
+0,4,1,Ice Cream ,137
+0,4,1,Fajita Beef Salad,360
+0,4,2,Texas Chili ,390
+0,4,2,Soup Du Jour ,50
+0,4,2,Meatballs Pastaria ,412
+0,4,2,Tri-Color Rotini ,200
+0,4,2,Chicken Parmesan Sandwich,400
+0,4,2,Garden Vegetable Soup,40
+0,4,2,Caesar salad ,94
+0,4,2,Frozen Yogurt ,114
+0,4,2,Ice Cream ,137
+0,4,3,Beef Mushroom Burger,300
+0,4,3,Creamy Tomato Soup ,130
+0,4,3,Soup Du Jour ,50
+0,4,3,ND Salad ,50
+0,4,3,Grilled Cheese on White,350
+0,4,3,Malibu Vegan Gardenburger,260
+0,4,3,ND Plain Bagel ,300
+0,4,3,Chicken Wings ,200
+0,4,3,Texas Chili ,390
+0,5,0,ND Plain Bagel ,250
+0,5,0,ND Everything Bagel,350
+0,5,0,ND Wheat Bagel ,230
+0,5,0,Glazed Donut,226
+0,5,0,Chocolate Glazed Donut,400
+0,5,0,Tofu Scramble,150
+0,5,0,Scrambled Eggs ,91
+0,5,0,Hard Cooked Eggs,78
+0,5,0,Bacon ,84
+0,5,1,Vegetable Tempura,120
+0,5,1,Beef Yaki Soba,260
+0,5,1,Miso Roasted Cod,200
+0,5,1,Meatballs Pastaria ,412
+0,5,1,Frozen Yogurt ,114
+0,5,1,Ice Cream ,137
+0,5,1,Caesar salad ,94
+0,5,1,ND Salad ,50
+0,5,1,Chess Pizza,420
+0,5,2,Texas Chili ,390
+0,5,2,Soup Du Jour ,50
+0,5,2,Meatballs Pastaria ,412
+0,5,2,Tri-Color Rotini ,200
+0,5,2,Chicken Parmesan Sandwich,400
+0,5,2,Garden Vegetable Soup,40
+0,5,2,Caesar salad ,94
+0,5,2,Frozen Yogurt ,114
+0,5,2,Ice Cream ,137
+0,5,3,Beef Mushroom Burger,300
+0,5,3,Creamy Tomato Soup ,130
+0,5,3,Soup Du Jour ,50
+0,5,3,ND Salad ,50
+0,5,3,Grilled Cheese on White,350
+0,5,3,Malibu Vegan Gardenburger,260
+0,5,3,ND Plain Bagel ,250
+0,6,0,Potato Hash with Avocado and Eggs,300
+0,6,0,Sunshine French Toast,150
+0,6,0,Bacon,84
+0,6,0,Hard Cooked Eggs,78
+0,6,0,Scrambled Eggs,91
+0,6,0,Flour Tortilla,467
+0,6,0,Biscuits,49
+0,6,0,Sausage Gravy,70
+0,6,0,Red Skin Roasted Potatoes,154
+0,6,1,Creamy Tomato Soup,130
+0,6,1,Texas Chili,390
+0,6,1,Chicken Tortilla Soup,285
+0,6,1,Cheese Pizza,420
+0,6,1,Pepperoni Pizza,450
+0,6,1,Chicken Marsala,357
+0,6,1,Meatballs in Au jus,420
+0,6,1,Steak Quesadilla,580
+0,6,1,ND Salad ,50
+0,6,1,Caesar salad ,94
+0,6,1,Soup Du Jour ,50
+0,6,1,Steamed Broccoli Cuts,30
+0,6,2,Mozzarella Breadsticks,210
+0,6,2,Creamy Tomato Soup,130
+0,6,2,Breaded Chicken Fillet,300
+0,6,2,Sweet & Sour Red Cabbage,180
+0,6,2,Hoagie Rolls,260
+0,6,2,Steamed Whole Green Beans,15
+0,6,2,Grilled Brazilian Steak,753
+0,6,2,Black Forest Cake,282
+0,6,3,Char-Grilled Chicken Breast,200
+0,6,3,Beef Mushroom Burger,300
+0,6,3,Malibu Vegan Gardenburger,260
+0,6,3,Steamed Sliced Carrots,30
+0,6,3,Soup Du Jour ,50
+0,6,3,Grilled Cheese on White,300
+0,6,3,Malibu Vegan Gardenburger,260
+0,6,3,ND Salad ,50
+0,7,0,ND Plain Bagel ,250
+0,7,0,ND Everything Bagel,350
+0,7,0,ND Wheat Bagel ,230
+0,7,0,Glazed Donut,226
+0,7,0,Chocolate Glazed Donut,400
+0,7,0,Tofu Scramble,150
+0,7,0,Scrambled Eggs ,91
+0,7,0,Hard Cooked Eggs,78
+0,7,0,Bacon ,84
+0,7,1,Vegetable Tempura,120
+0,7,1,Beef Yaki Soba,260
+0,7,1,Miso Roasted Cod,200
+0,7,1,Meatballs Pastaria ,412
+0,7,1,Frozen Yogurt ,114
+0,7,1,Ice Cream ,137
+0,7,1,Caesar salad ,94
+0,7,1,ND Salad ,50
+0,7,1,Chess Pizza,420
+0,7,2,Texas Chili ,390
+0,7,2,Soup Du Jour ,50
+0,7,2,Meatballs Pastaria ,412
+0,7,2,Tri-Color Rotini ,200
+0,7,2,Chicken Parmesan Sandwich,400
+0,7,2,Garden Vegetable Soup,40
+0,7,2,Caesar salad ,94
+0,7,2,Frozen Yogurt ,114
+0,7,2,Ice Cream ,137
+0,7,3,Beef Mushroom Burger,300
+0,7,3,Creamy Tomato Soup ,130
+0,7,3,Soup Du Jour ,50
+0,7,3,ND Salad ,50
+0,7,3,Grilled Cheese on White,350
+0,7,3,Malibu Vegan Gardenburger,260
+0,7,3,ND Plain Bagel ,250
+1,8,0,Fresh Pineapple Chunks,60
+1,8,0,Fresh Orange Sections,80
+1,8,0,Scrambled Eggs,91
+1,8,0,Sausage Links,200
+1,8,0,Coconut Cake Donut,400
+1,8,0,ND Blueberry Bagel,350
+1,8,0,Bacon,84
+1,8,0,ND Plain Bagel ,250
+1,8,0,ND Everything Bagel,350
+1,8,0,ND Wheat Bagel ,230
+1,8,1,Korean Bibim Guksu Salad,144
+1,8,1,Kimchi Fried Rice,203
+1,8,1,Hearty Vegetable Soup,98
+1,8,1,Texas Chili,390
+1,8,1,BBQ Chicken Pizza,135
+1,8,1,Sausage Pizza,311
+1,8,1,Grilled Cheese on White,300
+1,8,1,Chicken Cacciatore,380
+1,8,1,Red Delicious Apples,72
+1,8,2,Pork Schnitzel,480
+1,8,2,Sweet & Sour Braised Cabbage,180
+1,8,2,Potato Salad Zum Zum,130
+1,8,2,Soup Du Jour,50
+1,8,2,Creamy Tomato Soup,130
+1,8,2,Meatall Pastaria,412
+1,8,2,Char-Grilled Chicken Breast,200
+1,8,2,Malibu Vegan Gardenburger,260
+1,8,2,Corn,58
+1,8,2,Mixed Green Salad,45
+1,8,2,Cuban Sandwich,350
+1,8,3,Beef Mushroom Burger,300
+1,8,3,Chicken Strip Basket,1000
+1,8,3,ND Plain Bagel,250
+1,8,3,Vegetable Egg Roll,150
+1,8,3,Tom Yum Soup,120
+1,8,3,Chef Jet's Coconut Rice Pudding,80
+1,8,3,Macaroni & Cheese,340
+1,8,3,Stealth French Fries,480
+1,8,3,Carrots honey dill glazed MNN,70
+1,8,3,ND Salad,50
+1,8,3,Fruits,50
+2,8,4,Turkey Club,600
+2,8,4,Two Tomato Caprese,540
+2,8,4,Warm Chicken Avocado ,600
+2,8,4,Chicken Cobb with Avocado,450
+2,8,4,Vegetarian Deluxe,270
+2,8,4,Chicken Noodle Soup ,120
+2,8,4,Chicken Caesar Asiago,200
+2,8,4,Apple Cinnamon Croissant,220
+2,8,4,ND Chicken Salad ,50
+2,8,4,Plain Croissant,280
+2,8,4,Bacon & Cheese Kolache,300
+2,8,4,Cinnamon Raisin Bagel,240
+2,8,4,French Toast Bagel ,290
+2,8,4,Thai Peanut Chicken,200
+2,8,4,Low C Salad,80
+2,8,4,Newport Turkey,300
+2,8,4,Black Angus Steak & Cheese,690
+2,8,4,Ham & 2 Cheese,530
+2,8,4,Fruit Cup,70
+2,8,4,Fresh Grape  ,100
+2,8,4,Smoked Salmon,270
+2,8,4,Harvest Turkey,400
+2,8,4,The Good Egg,540
+2,8,4,ND DIet Cup ,200
+2,8,4,Organic Green  tea ,5
+2,8,4,English 0 ,5
+2,8,4,Mocha Latte ,270
+2,8,4,Vanilla Latte ,270
+3,8,4,Asiago Breadstick,140
+3,8,4,Country White Bread,240
+3,8,4,Ciabatta,190
+3,8,4,Sweet Cheese CroisBun,300
+3,8,4,ND  Beef Salad ,50
+3,8,4,Fruit Cup,70
+3,8,4,Fresh Grape  ,100
+3,8,4,Apple Danish,400
+3,8,4,Veggie & Hummus,540
+3,8,4,Herb Chicken Salad,200
+3,8,4,Mocha Green Tea,5
+3,8,4,Orange Juice ,150
+3,8,4,Avocado BLT,300
+3,8,4,Lobster Roll ,280
+3,8,4,Chicken noodle Soup ,130
+3,8,4,Chicken warps,350
+3,8,4,Salad Bar ,100
+3,8,4,Creamy Tomato Soup ,130
+3,8,4,Soup Du Jour ,50
+3,8,4,Fried chicken,320

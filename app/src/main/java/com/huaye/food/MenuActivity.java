@@ -31,6 +31,7 @@ import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -116,7 +117,14 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         queryFood = new BmobQuery<>();
         int week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        queryFood.addWhereEqualTo("week", week);
+        if (Calendar.getInstance().getFirstDayOfWeek() == Calendar.SUNDAY){
+            if (week == 1){
+                week = 7;
+            } else {
+                week = week - 1;
+            }
+        }
+        queryFood.addWhereContainedIn("week", Arrays.asList(week, 8));
         queryFood.addWhereEqualTo("restaurantId", Const.currentR);
 
         foodAdapter = new FoodRvAdapter(true);
@@ -205,16 +213,16 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
                 getIntake();
                 break;
             case R.id.btn1:
-                queryFood.addWhereEqualTo("type", 0);
+                queryFood.addWhereContainedIn("type", Arrays.asList(0, 4));
                 break;
             case R.id.btn2:
-                queryFood.addWhereEqualTo("type", 1);
+                queryFood.addWhereContainedIn("type", Arrays.asList(1, 4));
                 break;
             case R.id.btn3:
-                queryFood.addWhereEqualTo("type", 2);
+                queryFood.addWhereContainedIn("type", Arrays.asList(2, 4));
                 break;
             case R.id.btn4:
-                queryFood.addWhereEqualTo("type", 3);
+                queryFood.addWhereContainsAll("type", Arrays.asList(3, 4));
                 break;
         }
         queryFood.findObjects(new FindListener<Food>() {
@@ -272,7 +280,6 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
                 SharedPreferences sharedPreferences = getSharedPreferences("data", Activity.MODE_PRIVATE);
                 int stepCount = sharedPreferences.getInt("step_count_" + df.format(new Date()), 0);
                 float consumeCal = stepCount / 20.0f;
-
                 if (Math.abs(cal - consumeCal) < 400) {
                     queryFood.addWhereEqualTo("calorieLevel", 1);
                 } else if (cal - consumeCal < -400) {

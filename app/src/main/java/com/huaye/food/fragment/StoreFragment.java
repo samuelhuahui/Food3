@@ -3,6 +3,8 @@ package com.huaye.food.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +18,15 @@ import com.huaye.food.Const;
 import com.huaye.food.MenuActivity;
 import com.huaye.food.R;
 import com.huaye.food.WebViewActivity;
+import com.huaye.food.bean.Food;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.math.BigDecimal;
+
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * A fragment with a Google +1 button.
@@ -36,6 +47,39 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
     private String mParam2;
     private Button btn1, btn2, btn3, btn4, btn5;
     private LinearLayout ln1, ln2, ln3, ln4;
+    private Button sys;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            String[] strs = (String[]) msg.obj;
+            Food food = new Food();
+            float cal = Float.parseFloat(strs[4].trim());
+            if (cal > 350) {
+                food.setCalorieLevel(2);
+            } else if (cal < 150) {
+                food.setCalorieLevel(0);
+            } else {
+                food.setCalorieLevel(1);
+            }
+            food.setCalories(cal);
+            BigDecimal decimal = new BigDecimal(strs[0].trim());
+            food.setRestaurantId(decimal.intValue());
+            food.setName(strs[3].trim());
+            food.setWeek(Integer.parseInt(strs[1].trim()));
+            food.setType(Integer.parseInt(strs[2].trim()));
+            food.save(new SaveListener<String>() {
+                @Override
+                public void done(String s, BmobException e) {
+                    if (e == null) {
+                        count++;
+                        sys.setText("IMPORT : " + count);
+                        next = true;
+                    }
+                }
+            });
+            super.handleMessage(msg);
+        }
+    };
 
     public StoreFragment() {
         // Required empty public constructor
@@ -84,10 +128,15 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
         ln3 = (LinearLayout) view.findViewById(R.id.lin3);
         ln4 = (LinearLayout) view.findViewById(R.id.lin4);
 
+        sys = view.findViewById(R.id.sys);
+        sys.setVisibility(View.GONE);
+
         ln1.setOnClickListener(this);
         ln2.setOnClickListener(this);
         ln3.setOnClickListener(this);
         ln4.setOnClickListener(this);
+
+        sys.setOnClickListener(this);
     }
 
     @Override
@@ -130,6 +179,42 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
                 intent.setClass(getContext(), WebViewActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.sys:
+                sys();
+                break;
         }
+    }
+
+    private static boolean next = false;
+    private int count = 0;
+
+    private void sys() {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InputStream is = getContext().getAssets().open("数据.txt");
+                    InputStreamReader inputReader = new InputStreamReader(is);
+                    BufferedReader bufReader = new BufferedReader(inputReader);
+                    String line = "";
+                    while ((line = bufReader.readLine()) != null) {
+                        String[] strs = line.split(",");
+                        next = false;
+                        Message msg = mHandler.obtainMessage();
+                        msg.obj = strs;
+                        mHandler.sendMessage(msg);
+                        while (!next){
+                            Thread.sleep(500);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
     }
 }

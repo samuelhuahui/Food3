@@ -39,6 +39,7 @@ import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -167,8 +168,14 @@ public class ShakeFragment extends Fragment implements SensorEventListener {
     private void initData() {
         queryFood = new BmobQuery<>();
         int week = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        queryFood.addWhereEqualTo("week", week);
-
+        if (Calendar.getInstance().getFirstDayOfWeek() == Calendar.SUNDAY){
+            if (week == 1){
+                week = 7;
+            } else {
+                week = week - 1;
+            }
+        }
+        queryFood.addWhereContainedIn("week", Arrays.asList(week, 8));
         mHandler = new MyHandler(this);
 
         //初始化SoundPool

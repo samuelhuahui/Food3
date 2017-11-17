@@ -22,7 +22,6 @@ import com.huaye.food.bean.Food;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import cn.bmob.v3.BmobACL;
@@ -71,11 +70,7 @@ public class AddFoodActivity extends Activity {
         ArrayAdapter<String> adapterR = new ArrayAdapter<String>(this, R.layout.item_type, new String[]{"South Dining", "North Dining", "Library Cafe", "Grace Hall"});
         spinnerR.setAdapter(adapterR);
         ArrayAdapter<String> weekAdapter;
-        if (Calendar.getInstance().getFirstDayOfWeek() == Calendar.SUNDAY){
-            weekAdapter = new ArrayAdapter<String>(this, R.layout.item_type, new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
-        } else {
-            weekAdapter = new ArrayAdapter<String>(this, R.layout.item_type, new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"});
-        }
+        weekAdapter = new ArrayAdapter<String>(this, R.layout.item_type, new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"});
 
         week.setAdapter(weekAdapter);
 
