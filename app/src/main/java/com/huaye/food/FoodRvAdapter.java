@@ -32,7 +32,7 @@ public class FoodRvAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Food item) {
         helper.setText(R.id.title, item.getName())
-                .setText(R.id.calorie, item.getCalories() + "cal")
+                .setText(R.id.calorie, item.getCalories() + "kcal")
                 .addOnClickListener(R.id.add);
         if (isShowAdd) {
             helper.setImageResource(R.id.add, R.drawable.add);
