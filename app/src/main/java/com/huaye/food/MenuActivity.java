@@ -21,6 +21,7 @@ import com.huaye.food.bean.Caleras;
 import com.huaye.food.bean.Food;
 import com.huaye.food.bean.Score;
 import com.huaye.food.fragment.PlateFragment;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +58,7 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
     private TextView countTxt;
     private TextView eatTxt;
     private float intakeCal;
+    private AVLoadingIndicatorView loading;
     private ArrayList<Food> foods = new ArrayList<>();
 
     @Override
@@ -64,6 +66,7 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        loading = findViewById(R.id.loading);
         foodRv = (RecyclerView) findViewById(R.id.foodRv);
         scoreRb = (RatingBar) findViewById(R.id.score);
         typeRg = (RadioGroup) findViewById(R.id.type);
@@ -81,7 +84,6 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         typeRg.setOnCheckedChangeListener(this);
 
-        getIntake();
         scoreRb.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 
             @Override
@@ -130,7 +132,19 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
         foodAdapter = new FoodRvAdapter(true);
         foodRv.setLayoutManager(new LinearLayoutManager(this));
         foodRv.setAdapter(foodAdapter);
+        loading.show();
+        BmobQuery<Food> query = new BmobQuery<>();
 
+        List<BmobQuery<Food>> andQuerys = new ArrayList<BmobQuery<Food>>();
+        andQuerys.add(queryFood);
+        query.and(andQuerys);
+        query.findObjects(new FindListener<Food>() {
+            @Override
+            public void done(List<Food> list, BmobException e) {
+                foodAdapter.setNewData(list);
+                loading.hide();
+            }
+        });
         initListener();
     }
 
@@ -206,29 +220,35 @@ public class MenuActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        BmobQuery<Food> query = new BmobQuery<>();
         Intent intent = new Intent();
         intent.setClass(MenuActivity.this, FoodListActivity.class);
+        loading.show();
         switch (checkedId) {
             case R.id.btn0:
                 getIntake();
                 break;
             case R.id.btn1:
-                queryFood.addWhereContainedIn("type", Arrays.asList(0, 4));
+                query.addWhereContainedIn("type", Arrays.asList(0, 4));
                 break;
             case R.id.btn2:
-                queryFood.addWhereContainedIn("type", Arrays.asList(1, 4));
+                query.addWhereContainedIn("type", Arrays.asList(1, 4));
                 break;
             case R.id.btn3:
-                queryFood.addWhereContainedIn("type", Arrays.asList(2, 4));
+                query.addWhereContainedIn("type", Arrays.asList(2, 4));
                 break;
             case R.id.btn4:
-                queryFood.addWhereContainsAll("type", Arrays.asList(3, 4));
+                query.addWhereContainedIn("type", Arrays.asList(3, 4));
                 break;
         }
-        queryFood.findObjects(new FindListener<Food>() {
+        List<BmobQuery<Food>> andQuerys = new ArrayList<BmobQuery<Food>>();
+        andQuerys.add(queryFood);
+        query.and(andQuerys);
+        query.findObjects(new FindListener<Food>() {
             @Override
             public void done(List<Food> list, BmobException e) {
                 foodAdapter.setNewData(list);
+                loading.hide();
             }
         });
 

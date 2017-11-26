@@ -30,12 +30,12 @@ public class DirectionAdapter extends BaseQuickAdapter<Direction.Route, BaseView
                 .setText(R.id.dis, item.legs.get(0).distance.value + "m");
 
         if (helper.getAdapterPosition() == mPosition) {
-            helper.setText(R.id.program, "推荐方案");
+            helper.setText(R.id.program, "Recommend");
             helper.setBackgroundRes(R.id.bottom_detail, R.drawable.item_bg);
             helper.setBackgroundColor(R.id.program, Color.parseColor("#4182FF"));
             helper.setTextColor(R.id.program, Color.parseColor("#FFFFFF"));
         } else {
-            helper.setText(R.id.program, "方案" + (helper.getAdapterPosition() + 1));
+            helper.setText(R.id.program, "Way" + (helper.getAdapterPosition() + 1));
             helper.setBackgroundRes(R.id.bottom_detail, R.drawable.item_bg_p);
             helper.setBackgroundColor(R.id.program, Color.parseColor("#E8E8E8"));
             helper.setTextColor(R.id.program, Color.parseColor("#838383"));

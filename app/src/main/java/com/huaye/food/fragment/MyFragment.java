@@ -141,7 +141,7 @@ public class MyFragment extends Fragment {
 
         if (stepCount > 0){
             float kcal = stepCount / 20.0f;
-            DecimalFormat format = new DecimalFormat("#.00");
+            DecimalFormat format = new DecimalFormat("#0.00");
             consume.setText(format.format(kcal));
         }
     }
@@ -161,7 +161,7 @@ public class MyFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         float kcal = event.stepCount / 20.0f;
-        DecimalFormat format = new DecimalFormat("#.00");
+        DecimalFormat format = new DecimalFormat("#0.00");
         consume.setText(format.format(kcal));
     }
 

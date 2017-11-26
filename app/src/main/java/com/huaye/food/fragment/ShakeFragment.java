@@ -34,6 +34,7 @@ import com.huaye.food.MarkerActivity;
 import com.huaye.food.R;
 import com.huaye.food.bean.Caleras;
 import com.huaye.food.bean.Food;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
@@ -43,6 +44,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -89,6 +91,7 @@ public class ShakeFragment extends Fragment implements SensorEventListener {
     private int mStepCount;
     private BmobQuery queryFood;
 
+    private AVLoadingIndicatorView loading;
     public ShakeFragment() {
         // Required empty public constructor
     }
@@ -139,7 +142,7 @@ public class ShakeFragment extends Fragment implements SensorEventListener {
     }
 
     private void initView(View view) {
-
+        loading = view.findViewById(R.id.loading);
         mTopLayout = view.findViewById(R.id.main_linear_top);
         mBottomLayout = view.findViewById(R.id.main_linear_bottom);
         mTopLine = view.findViewById(R.id.main_shake_top_line);
@@ -244,30 +247,58 @@ public class ShakeFragment extends Fragment implements SensorEventListener {
                 int stepCount = sharedPreferences.getInt("step_count_" + df.format(new Date()), 0);
                 float consumeCal = stepCount / 20.0f;
 
-                if (Math.abs(cal - consumeCal) < 400) {
-                    queryFood.addWhereEqualTo("calorieLevel", 1);
-                } else if (cal - consumeCal < -400) {
-                    queryFood.addWhereEqualTo("calorieLevel", 0);
+                BmobQuery<Food> query = new BmobQuery<>();
+                List<BmobQuery<Food>> andQuerys = new ArrayList<BmobQuery<Food>>();
+                andQuerys.add(queryFood);
+                query.and(andQuerys);
+                if (Math.abs(cal - consumeCal) < 400 && cal - consumeCal > -400) {
+                    query.addWhereEqualTo("calorieLevel", 1);
+                } else if (cal - consumeCal > 400) {
+                    query.addWhereEqualTo("calorieLevel", 0);
                 } else {
-                    queryFood.addWhereEqualTo("calorieLevel", 2);
+                    query.addWhereEqualTo("calorieLevel", 2);
                 }
 
                 Calendar calendar = Calendar.getInstance();
                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                 if (hour > 6 && hour <= 11) {
-                    queryFood.addWhereEqualTo("type", 0);
+                    query.addWhereContainedIn("type", Arrays.asList(0, 4));
                 } else if (hour > 11 && hour <= 16) {
-                    queryFood.addWhereEqualTo("type", 1);
+                    query.addWhereContainedIn("type", Arrays.asList(1, 4));
+//                    query.addWhereEqualTo("type", 1);
                 } else if (hour > 16 && hour <= 20) {
-                    queryFood.addWhereEqualTo("type", 2);
+                    query.addWhereContainedIn("type", Arrays.asList(2, 4));
+//                    query.addWhereEqualTo("type", 2);
                 } else {
-                    queryFood.addWhereEqualTo("type", 3);
+                    query.addWhereContainedIn("type", Arrays.asList(3, 4));
+//                    query.addWhereEqualTo("type", 3);
                 }
-                queryFood.setLimit(5);
-                queryFood.findObjects(new FindListener<Food>() {
+                query.findObjects(new FindListener<Food>() {
                     @Override
                     public void done(List<Food> list, BmobException e) {
-                        mAdapter.setNewData(list);
+
+                        if (list.size() <= 5){
+                            mAdapter.setNewData(list);
+                        } else {
+                            List<Food> subList = new ArrayList<>();
+                            Random random = new Random();
+                            ArrayList<Integer> ls = new ArrayList<Integer>();
+
+                            for(int i = 0; i < 5;i++){
+                                int number = random.nextInt(list.size());
+
+                                if(!ls.contains(number)){
+                                    ls.add(number);
+                                    subList.add(list.get(number));
+                                } else {
+                                    i--;
+                                }
+                            }
+
+                            mAdapter.setNewData(subList);
+                        }
+
+                        loading.hide();
                     }
                 });
             }
@@ -402,6 +433,7 @@ public class ShakeFragment extends Fragment implements SensorEventListener {
             bottomAnim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
+                    loading.show();
                 }
 
                 @Override

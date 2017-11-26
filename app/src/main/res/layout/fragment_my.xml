@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="消耗(KCAL)"
+                    android:text="Cost (KCAL)"
                     android:textColor="#333"
                     android:textSize="18sp" />
 
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="摄入(KCAL)"
+                    android:text="Eat (KCAL)"
                     android:textColor="#333"
                     android:textSize="18sp" />
 
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="健康记步"
+                android:text="Step"
                 android:textColor="#333"
                 android:textSize="20sp" />
 
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="菜单管理"
+                android:text="Menu manager"
                 android:textColor="#333"
                 android:textSize="20sp" />
 
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="添加食品"
+                android:text="Add food"
                 android:textColor="#333"
                 android:textSize="20sp" />
 
@@ -202,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="关于"
+                android:text="About"
                 android:textColor="#333"
                 android:textSize="20sp" />
 
@@ -233,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:text="退出"
+                android:text="Exit"
                 android:textColor="#333"
                 android:textSize="20sp" />
 

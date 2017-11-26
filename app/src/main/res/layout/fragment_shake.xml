@@ -1,5 +1,5 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +8,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/food_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:id="@+id/root"
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_launcher"/>
+                android:src="@drawable/ic_launcher" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,13 +47,13 @@
                         android:id="@+id/main_shake_top"
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
-                        android:src="@drawable/shake_top"/>
+                        android:src="@drawable/shake_top" />
 
                     <ImageView
                         android:id="@+id/main_shake_top_line"
                         android:layout_width="match_parent"
                         android:layout_height="5dp"
-                        android:background="@drawable/shake_top_line"/>
+                        android:background="@drawable/shake_top_line" />
                 </LinearLayout>
 
                 <!--底部的横线和图片-->
@@ -68,13 +68,13 @@
                         android:id="@+id/main_shake_bottom_line"
                         android:layout_width="match_parent"
                         android:layout_height="5dp"
-                        android:background="@drawable/shake_bottom_line"/>
+                        android:background="@drawable/shake_bottom_line" />
 
                     <ImageView
                         android:id="@+id/main_shake_bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
-                        android:src="@drawable/shake_bottom"/>
+                        android:src="@drawable/shake_bottom" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -82,4 +82,12 @@
     </LinearLayout>
 
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:indicatorColor="@color/primary"
+        app:indicatorName="BallPulseIndicator" />
 </FrameLayout>

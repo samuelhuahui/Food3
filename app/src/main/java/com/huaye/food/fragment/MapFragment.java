@@ -108,7 +108,7 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
             //如果是Network
             locationProvider = LocationManager.NETWORK_PROVIDER;
         } else {
-            Toast.makeText(getContext(), "没有可用的位置提供器", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
             return;
         }
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
