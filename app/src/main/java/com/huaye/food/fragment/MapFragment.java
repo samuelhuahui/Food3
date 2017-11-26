@@ -139,7 +139,7 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
                 polylines.clear();
                 Direction direction = new Gson().fromJson(response.get(), Direction.class);
                 if (!"OK".equals(direction.status)) {
-                    Toast.makeText(getContext(), direction.status, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getContext(), direction.status, Toast.LENGTH_LONG).show();
                     return;
                 }
                 direction.parse();
@@ -310,7 +310,6 @@ public class MapFragment extends SupportMapFragment implements OnMapAndViewReady
                 @Override
                 public void onLocationChanged(Location location) {
                     mLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    Toast.makeText(getContext(), location.getProvider(), Toast.LENGTH_LONG).show();
                 }
             });
         }

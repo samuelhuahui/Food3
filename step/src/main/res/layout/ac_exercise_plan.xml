@@ -39,7 +39,7 @@
                     android:gravity="center_horizontal"
                     android:paddingLeft="10px"
                     android:paddingRight="10px"
-                    android:text="锻炼计划"
+                    android:text="Exercise Plan"
                     android:textColor="#ffffff"
                     android:textSize="20sp" />
 
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="每日锻炼步数"
+                    android:text="Daily Exercise Steps"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -119,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="提醒"
+                    android:text="Remind"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="提醒时间"
+                    android:text="Remind Time"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -174,7 +174,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
             android:background="@mipmap/btn_submit_bg"
-            android:text="保存"
+            android:text="SAVE"
             android:textColor="#ffffff"
             android:textSize="18dp" />
 

@@ -62,7 +62,7 @@ public class HistoryActivity extends AppCompatActivity {
                 TextView tv_date= CommonViewHolder.get(item,R.id.tv_date);
                 TextView tv_step= CommonViewHolder.get(item,R.id.tv_step);
                 tv_date.setText(stepData.getToday());
-                tv_step.setText(stepData.getStep()+"步");
+                tv_step.setText(stepData.getStep()+" step");
             }
         });
     }
@@ -70,7 +70,7 @@ public class HistoryActivity extends AppCompatActivity {
     protected <T extends View> T setEmptyView(ListView listView) {
         TextView emptyView = new TextView(this);
         emptyView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        emptyView.setText("暂无数据！");
+        emptyView.setText("No Data！");
         emptyView.setGravity(Gravity.CENTER);
         emptyView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         emptyView.setVisibility(View.GONE);

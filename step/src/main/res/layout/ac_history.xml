@@ -33,7 +33,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="10px"
             android:paddingRight="10px"
-            android:text="历史记录"
+            android:text="History"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 

@@ -106,7 +106,7 @@
             android:layout_height="match_parent"
             android:background="#59D178"
             android:gravity="center"
-            android:text="就餐"
+            android:text="Eat"
             android:textColor="#FFF"
             android:textSize="20sp"
             android:textStyle="bold" />

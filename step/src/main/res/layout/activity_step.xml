@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="健康记步"
+            android:text="Healthy Steps"
             android:textColor="#333"
             android:textSize="22sp"/>
     </RelativeLayout>
@@ -47,7 +47,7 @@
             android:drawableLeft="@mipmap/home_statistical"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
-            android:text="查看历史步数"
+            android:text="View History"
             android:textColor="#333333"/>
 
         <cn.bluemobi.dylan.step.view.StepArcView
@@ -70,7 +70,7 @@
             android:drawableLeft="@mipmap/home_question_mark"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
-            android:text="设置锻炼计划"
+            android:text="Set Plan"
             android:textColor="#333333"/>
 
         <TextView
@@ -80,7 +80,7 @@
             android:layout_below="@+id/cc"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:text="该设备支持计步"
+            android:text="Supporting Step"
             android:textColor="#333333"/>
 
     </RelativeLayout>

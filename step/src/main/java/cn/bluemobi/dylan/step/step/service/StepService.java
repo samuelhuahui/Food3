@@ -130,7 +130,7 @@ public class StepService extends Service implements SensorEventListener {
     private void initNotification() {
         mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setContentTitle(getResources().getString(R.string.app_name))
-                .setContentText("今日步数" + CURRENT_STEP + " 步")
+                .setContentText("Today " + CURRENT_STEP + " step")
                 .setContentIntent(getDefalutIntent(Notification.FLAG_ONGOING_EVENT))
                 .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
                 .setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
@@ -158,7 +158,7 @@ public class StepService extends Service implements SensorEventListener {
             Log.v(TAG, "StepData=" + list.get(0).toString());
             CURRENT_STEP = Integer.parseInt(list.get(0).getStep());
         } else {
-            Log.v(TAG, "出错了！");
+            Log.v(TAG, "error！");
         }
         if (mStepCount != null) {
             mStepCount.setSteps(CURRENT_STEP);
@@ -279,7 +279,7 @@ public class StepService extends Service implements SensorEventListener {
         PendingIntent hangPendingIntent = PendingIntent.getActivity(this, 0, hangIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Notification notification = mBuilder.setContentTitle(getResources().getString(R.string.app_name))
-                .setContentText("今日步数" + CURRENT_STEP + " 步")
+                .setContentText("Today " + CURRENT_STEP + " step")
                 .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
                 .setContentIntent(hangPendingIntent)
                 .build();
@@ -324,10 +324,10 @@ public class StepService extends Service implements SensorEventListener {
 
         String plan = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("planWalk_QTY", "7000");
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
-        mBuilder.setContentTitle("今日步数" + CURRENT_STEP + " 步")
-                .setContentText("距离目标还差" + (Integer.valueOf(plan) - CURRENT_STEP) + "步，加油！")
+        mBuilder.setContentTitle("Today " + CURRENT_STEP + " step")
+                .setContentText((Integer.valueOf(plan) - CURRENT_STEP) + "behind，Come on！")
                 .setContentIntent(hangPendingIntent)
-                .setTicker(getResources().getString(R.string.app_name) + "提醒您开始锻炼了")//通知首次出现在通知栏，带上升动画效果的
+                .setTicker(getResources().getString(R.string.app_name))//通知首次出现在通知栏，带上升动画效果的
                 .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
                 .setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
                 .setAutoCancel(true)//设置这个标志当用户单击面板就可以让通知将自动取消

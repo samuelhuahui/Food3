@@ -51,7 +51,7 @@ public class StepActivity extends AppCompatActivity implements View.OnClickListe
         String planWalk_QTY = (String) sp.getParam("planWalk_QTY", "7000");
         //设置当前步数为0
         cc.setCurrentCount(Integer.parseInt(planWalk_QTY), 0);
-        tv_isSupport.setText("计步中...");
+        tv_isSupport.setText("In Statistics...");
         setupService();
     }
 
